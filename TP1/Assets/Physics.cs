@@ -49,6 +49,12 @@ public class Physics : MonoBehaviour {
 	public void RemoveForce (Vector3 force) {
 		forcesToSum.Remove (force);
 	}
+
+	public void StopObject () {
+		forcesToSum.Clear ();
+		acceleration = Vector3.zero;
+		velocity = Vector3.zero;
+	}
 }
 
 
