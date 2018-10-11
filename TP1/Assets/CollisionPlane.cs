@@ -7,6 +7,7 @@ public class CollisionPlane : MonoBehaviour {
 	Vector3 planeNormal = Vector3.zero;
 	Vector3 planePoint = Vector3.zero;
 	Vector3[] planePoints = new Vector3 [4];
+	Vector3[] verticeFlipper = new Vector3[2];
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,11 @@ public class CollisionPlane : MonoBehaviour {
 			planePoints[i] = transform.TransformPoint(mesh.vertices[i]);
 			Debug.Log (planePoints [i]);
 		}
-			
+
+		verticeFlipper[0] = planePoints [1];
+		verticeFlipper[1] = planePoints [2];
+		planePoints [1] = verticeFlipper [1];
+		planePoints [2] = verticeFlipper [0];
 	}
 
 	public Vector3 getPlaneNormal (){

@@ -101,7 +101,7 @@ public class PrioriCollisionDetection : MonoBehaviour {
 		for (int i = 0; i < polyPoints.Length; j = i++) { 
 			if ( ((polyPoints[i].y <= p.y && p.y < polyPoints[j].y) || (polyPoints[j].y <= p.y && p.y < polyPoints[i].y)) && 
 				(p.x < (polyPoints[j].x - polyPoints[i].x) * (p.y - polyPoints[i].y) / (polyPoints[j].y - polyPoints[i].y) + polyPoints[i].x)) {
-				inside = true; 
+				inside = !inside; 
 			}
 		} 
 		return inside; 
