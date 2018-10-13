@@ -10,6 +10,7 @@ public class Physics : MonoBehaviour {
 	private float mass = 5f;
 	private Vector3 acceleration;
 	private Vector3 gravity = new Vector3(0.0f, -9.81f, 0.0f);
+    private Vector3 movement = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,8 @@ public class Physics : MonoBehaviour {
 		//Algo Cinematique
 		SumForces ();
 		ModifyVelocity ();
-		transform.position += velocity * Time.deltaTime + ( (0.5f * acceleration) * (Mathf.Pow(Time.deltaTime, 2.0f)));
+        movement = velocity * Time.deltaTime + ((0.5f * acceleration) * (Mathf.Pow(Time.deltaTime, 2.0f)));
+        transform.position += movement;
 	}
 
 	void SumForces () {
@@ -55,6 +57,21 @@ public class Physics : MonoBehaviour {
 		acceleration = Vector3.zero;
 		velocity = Vector3.zero;
 	}
+
+    public Vector3 getMovement()
+    {
+        return movement;
+    }
+
+    public Vector3 getVelocity()
+    {
+        return velocity;
+    }
+
+    public void setVelocity(Vector3 velocity)
+    {
+        this.velocity = velocity;
+    }
 }
 
 
