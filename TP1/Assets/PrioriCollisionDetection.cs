@@ -151,7 +151,7 @@ public class PrioriCollisionDetection : MonoBehaviour {
         Vector3 planeIntersection = p + v * alpha;
         
         planeIntersection = wall.transform.InverseTransformPoint(planeIntersection);
-        if (ContainsPoint(wall.getPlanePointsLocal(), planeIntersection)){
+        if (VerifyIfWithinPolygon(wall.getPlanePointsLocal(), planeIntersection)){
             Debug.Log("COLLISION at point:"+p);
             Vector3 vel = new Vector3(physics.getVelocity().x,physics.getVelocity().y,physics.getVelocity().z);
             physics.StopObject();
@@ -186,11 +186,20 @@ public class PrioriCollisionDetection : MonoBehaviour {
         float alpha = ((p.y - q.y) * w.x - (p.x - q.x) * w.y) / (v.x * w.y - v.y * w.x);
         Debug.Log("Attribut:P:" + p + " V " + v + " Q " + q + " W " + w);
         Debug.Log("ALPHA:"+alpha);
-        float beta = (p.x + v.x * alpha - q.x) / w.x;
+        float beta;
+        if (w.x != 0)
+        {
+             beta = (p.x + v.x * alpha - q.x) / w.x;
+        }
+        else
+        {
+            beta = (p.y + v.y * alpha - q.y) / w.y;
+        }
+        
         Debug.Log("BETA:" + beta);
         bool intersect = true;
         intersect &= alpha >= 0;
-        intersect &= (beta >= -1 && beta <= 1);
+        intersect &= (beta >= 0 && beta <= 1);
         return intersect;
     }
 
