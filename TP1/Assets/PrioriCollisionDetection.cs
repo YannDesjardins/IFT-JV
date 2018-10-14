@@ -177,15 +177,12 @@ public class PrioriCollisionDetection : MonoBehaviour {
                 intersection++;
             }
         }
-        Debug.Log(intersection % 2 == 1);
         return intersection%2==1;
     }
 
     bool IntersectionVecteur2d(Vector3 p,Vector3 v, Vector3 q, Vector3 w)
     {
         float alpha = ((p.y - q.y) * w.x - (p.x - q.x) * w.y) / (v.x * w.y - v.y * w.x);
-        Debug.Log("Attribut:P:" + p + " V " + v + " Q " + q + " W " + w);
-        Debug.Log("ALPHA:"+alpha);
         float beta;
         if (w.x != 0)
         {
@@ -196,7 +193,6 @@ public class PrioriCollisionDetection : MonoBehaviour {
             beta = (p.y + v.y * alpha - q.y) / w.y;
         }
         
-        Debug.Log("BETA:" + beta);
         bool intersect = true;
         intersect &= alpha >= 0;
         intersect &= (beta >= 0 && beta <= 1);
