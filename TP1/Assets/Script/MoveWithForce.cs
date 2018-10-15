@@ -15,9 +15,20 @@ public class MoveWithForce : MonoBehaviour {
 	}
 	
 	void ApplyForce(){
+        if (physics == null)
+        {
+            physics = GetComponent<Physics>();
+        }
 		physics.AddForce (forceToApply);
 		Invoke ("StopForce", durationOfForce);
 	}
+
+    public void ApplyForce(Vector3 force, float duration)
+    {
+        forceToApply = force;
+        durationOfForce = duration;
+        ApplyForce();
+    }
 
 	void StopForce(){
 		physics.RemoveForce (forceToApply);

@@ -23,7 +23,10 @@ public class ColliderSphere : AbstractCollider {
         GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
         for(int i = 0; i < walls.Length; i++)
         {
-            Intersect(walls[i].transform.GetChild(0).GetComponent<CollisionPlane>());
+            if (Intersect(walls[i].transform.GetChild(0).GetComponent<CollisionPlane>()))
+            {
+                break;
+            }
         }
     }
 

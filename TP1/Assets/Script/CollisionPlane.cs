@@ -22,7 +22,6 @@ public class CollisionPlane : MonoBehaviour {
 
 			planePoints[i] = transform.TransformPoint(mesh.vertices[i]);
             planePointsLocal[i] = mesh.vertices[i];
-			//Debug.Log (planePoints [i]);
 		}
 
 		verticeFlipper[0] = planePoints [1];
