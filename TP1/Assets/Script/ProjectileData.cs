@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileData : MonoBehaviour {
-
-    public float timeTolive = 3;
+    public delegate void OnProjectileDestruction();
+    public event OnProjectileDestruction onProjectileDestruction;
+    public float timeTolive = 4;
 
     float time;
 	// Use this for initialization
@@ -17,6 +18,10 @@ public class ProjectileData : MonoBehaviour {
         if (Time.time-time > 3)
         {
             Destroy(gameObject);
+            if (onProjectileDestruction != null)
+            {
+                onProjectileDestruction();
+            }
         }
 	}
 }

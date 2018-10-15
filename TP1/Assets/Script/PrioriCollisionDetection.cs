@@ -15,6 +15,7 @@ public class PrioriCollisionDetection : AbstractCollider {
                 Vector3 globalPointPos = transform.TransformPoint(vertices[j]);
                 if (CollisionPoint(globalPointPos,walls[i]))
                 {
+                    wallCollisionReaction();
                     break;
                 }
 

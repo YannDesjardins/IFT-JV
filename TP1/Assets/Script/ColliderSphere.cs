@@ -25,6 +25,7 @@ public class ColliderSphere : AbstractCollider {
         {
             if (Intersect(walls[i].transform.GetChild(0).GetComponent<CollisionPlane>()))
             {
+                wallCollisionReaction();
                 break;
             }
         }

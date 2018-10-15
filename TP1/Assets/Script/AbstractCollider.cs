@@ -4,6 +4,9 @@ using System.Collections;
 public abstract class AbstractCollider : MonoBehaviour
 {
     protected Physics physics;
+    public delegate void OnWallCollision();
+    public event OnWallCollision onWallCollision;
+
 
     void Start()
     {
@@ -70,5 +73,13 @@ public abstract class AbstractCollider : MonoBehaviour
         physics.StopObject();
         vel = vel - reboundFactor * (2 * (Vector3.Dot(planeNormal, vel) * planeNormal));
         physics.setVelocity(vel);
+    }
+
+    protected void wallCollisionReaction()
+    {
+        if (onWallCollision != null)
+        {
+            onWallCollision();
+        }
     }
 }

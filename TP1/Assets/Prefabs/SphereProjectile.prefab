@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114484645439274420}
   - component: {fileID: 114133620356643994}
   - component: {fileID: 114940246775169120}
+  - component: {fileID: 114912381282336630}
   m_Layer: 0
   m_Name: SphereProjectile
   m_TagString: Untagged
@@ -112,8 +113,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf58201701794c0438f040b478a2375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceToApply: {x: -300, y: 120, z: 500}
-  durationOfForce: 0.5
+  forceToApply: {x: 0, y: 0, z: 0}
+  durationOfForce: 0
+--- !u!114 &114912381282336630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1835326871736828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0fc80507d884f48b961253a3daf0de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTolive: 3
 --- !u!114 &114940246775169120
 MonoBehaviour:
   m_ObjectHideFlags: 1
