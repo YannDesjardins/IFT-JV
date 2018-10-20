@@ -8,7 +8,7 @@ public abstract class AbstractCollider : MonoBehaviour
     public event OnWallCollision onWallCollision;
 
 
-    void Start()
+    protected void Start()
     {
         physics = GetComponent<Physics>();
     }

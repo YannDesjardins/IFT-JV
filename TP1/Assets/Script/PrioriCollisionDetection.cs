@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class PrioriCollisionDetection : AbstractCollider {
 
-	void FixedUpdate () {
-        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+    private GameObject[] walls;
+
+    new void Start()
+    {
+        base.Start();
+        walls = GameObject.FindGameObjectsWithTag("Wall");
+    }
+
+    void FixedUpdate () {
+        //GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
         Vector3[] vertices = GetComponent<MeshFilter>().mesh.vertices;
         //verifier collision avec tous les object avec lesquelles il peut y avoir collision.
         for(int i = 0; i < walls.Length; i++)

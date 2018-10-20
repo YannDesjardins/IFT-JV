@@ -5,11 +5,13 @@ using UnityEngine;
 public class ColliderSphere : AbstractCollider {
     Vector3 center;
     float radius;
+    GameObject[] walls;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    new void Start () {
+        base.Start();
         radius = GetComponent<SphereCollider>().radius;
-        physics = GetComponent<Physics>();
+        walls = GameObject.FindGameObjectsWithTag("Wall");
     }
 	
 	// Update is called once per frame
@@ -20,7 +22,7 @@ public class ColliderSphere : AbstractCollider {
     private void FixedUpdate()
     {
         center = transform.position;
-        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+        
         for(int i = 0; i < walls.Length; i++)
         {
             if (Intersect(walls[i].transform.GetChild(0).GetComponent<CollisionPlane>()))

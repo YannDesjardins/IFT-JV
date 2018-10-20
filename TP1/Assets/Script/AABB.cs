@@ -26,7 +26,12 @@ public class AABB : MonoBehaviour {
     // regarde si le point est dans les limites du AABB, retoune true si oui, false autrement
     public bool IsOutOfBound(Vector3 point)
     {
-        return !(point.x > min.x && point.x < max.x &&
+        return !IsInBound(point);
+    }
+
+    public bool IsInBound(Vector3 point)
+    {
+        return (point.x > min.x && point.x < max.x &&
             point.y > min.y && point.y < max.y &&
             point.z > min.z && point.z < max.z);
     }
