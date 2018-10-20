@@ -41,8 +41,8 @@ public class Game : MonoBehaviour {
     {
         Debug.Log("Score is :" + score[0] + "-" + score[1]);
 
-		player1Score.text = "Player 1 score: " + score [0];
-		player2Score.text = "Player 2 score: " + score [1];
+		player1Score.text = "Player 1 score: " + score [1];
+		player2Score.text = "Player 2 score: " + score [0];
 
         if (VerifiyIfGameOver())
         {
