@@ -51,7 +51,7 @@ public class PrioriCollisionDetection : AbstractCollider {
         //resoudre system equation entre droite du vector et plane de la face
         float alpha = (d - Vector3.Dot(n, p)) / Vector3.Dot(n, v);
         //regarder si intersection est dans vecteur
-        if (alpha > 1 || alpha < -1)
+        if (alpha > 1 || alpha <= 0)
         {
             return false;
         }
