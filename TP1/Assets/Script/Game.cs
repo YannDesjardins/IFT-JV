@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class Game : MonoBehaviour {
     public ProjectileLauncher player1;
     public ProjectileLauncher player2;
     public int scoreToWin = 10;
+	public Text player1Score;
+	public Text player2Score;
 
 
 	// Use this for initialization
@@ -21,6 +24,9 @@ public class Game : MonoBehaviour {
         player2.onProjectileDestruction += ExecuteTurn;
         player1.onWallCollision += ModifyScore;
         player2.onWallCollision += ModifyScore;
+
+		player1Score.text = "Player 1 score: 0";
+		player2Score.text = "Player 2 score: 0";	
     }
 	
 	// Update is called once per frame
@@ -34,6 +40,10 @@ public class Game : MonoBehaviour {
     void ExecuteTurn()
     {
         Debug.Log("Score is :" + score[0] + "-" + score[1]);
+
+		player1Score.text = "Player 1 score: " + score [0];
+		player2Score.text = "Player 2 score: " + score [1];
+
         if (VerifiyIfGameOver())
         {
             Application.Quit();
