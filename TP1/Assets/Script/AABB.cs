@@ -29,6 +29,7 @@ public class AABB : MonoBehaviour {
         return !IsInBound(point);
     }
 
+    //inspire de ce lien http://www.miguelcasillas.com/?p=24
     public bool IsInBound(Vector3 point)
     {
         return (point.x > min.x && point.x < max.x &&
