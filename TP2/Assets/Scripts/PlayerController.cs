@@ -7,6 +7,8 @@ public class PlayerController : NetworkBehaviour {
 
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
+	public float rateOfFire;
+	private float timeOfFire;
 
 	void Update () {
 		if (!isLocalPlayer)
@@ -14,15 +16,16 @@ public class PlayerController : NetworkBehaviour {
 			return;
 		}
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 400.0f;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f;
 
 		transform.Rotate(0, x, 0);
 		transform.Translate(0, 0, z);
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKey(KeyCode.Space)&&Time.time>timeOfFire)
 		{
 			CmdFire();
+			timeOfFire=Time.time+rateOfFire;
 		}
 	}
 	[Command]
@@ -35,13 +38,13 @@ public class PlayerController : NetworkBehaviour {
 			bulletSpawn.rotation);
 
 		// Add velocity to the bullet
-		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
+		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 20;
 
 		// Spawn the bullet on the Clients
 		NetworkServer.Spawn(bullet);
 
 		// Destroy the bullet after 2 seconds
-		Destroy(bullet, 2.0f);        
+		Destroy(bullet, 5.0f);        
 	}
 	public override void OnStartLocalPlayer()
 	{

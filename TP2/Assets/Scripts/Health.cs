@@ -11,6 +11,7 @@ public class Health : NetworkBehaviour {
 
 	[SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
+
 	public RectTransform healthBar;
 
 	private NetworkStartPosition[] spawnPoints;

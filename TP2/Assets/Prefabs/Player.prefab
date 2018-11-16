@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114125393885006410}
   - component: {fileID: 114034560654403208}
   - component: {fileID: 114032390862248044}
+  - component: {fileID: 54418565584524632}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -318,6 +319,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1648663519099522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54418565584524632
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088195250992208}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!65 &65558430945896406
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -341,6 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30c7bfa656f83244843bcc4480c0f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnDeath: 0
   currentHealth: 100
   healthBar: {fileID: 224133388230511216}
 --- !u!114 &114034560654403208
@@ -512,6 +529,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226,
     type: 2}
   bulletSpawn: {fileID: 4576505771718584}
+  rateOfFire: 0.1
 --- !u!136 &136181987075609210
 CapsuleCollider:
   m_ObjectHideFlags: 1
