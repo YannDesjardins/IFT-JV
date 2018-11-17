@@ -16,13 +16,24 @@ public class PlayerController : NetworkBehaviour {
 			return;
 		}
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 400.0f;
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
 		var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f;
 
-		transform.Rotate(0, x, 0);
-		transform.Translate(0, 0, z);
+		transform.Translate(x, 0, 0, Space.World);
+		transform.Translate(0, 0, z, Space.World);
 
-		if (Input.GetKey(KeyCode.Space)&&Time.time>timeOfFire)
+		//Changer direction de tire avec raycast
+		//Source: https://www.youtube.com/watch?v=lkDGk3TjsIE
+		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Plane groundPlane = new Plane (Vector3.up, Vector3.zero);
+		float rayLength;
+
+		if(groundPlane.Raycast(cameraRay, out rayLength)){
+			Vector3 pointToLook = cameraRay.GetPoint(rayLength);
+			transform.LookAt (new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+		}
+			
+		if (Input.GetKey(KeyCode.Mouse0)&&Time.time>timeOfFire)
 		{
 			CmdFire();
 			timeOfFire=Time.time+rateOfFire;
