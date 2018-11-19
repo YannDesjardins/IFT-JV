@@ -6,17 +6,12 @@ using UnityEngine.Networking;
 
 public class GameMenu : MonoBehaviour {
 	
+	public GameObject NetworkManagerGameObject;
 
 	public void MainMenu (){
-		
 
-
-		SceneManager.UnloadSceneAsync ("Game");
+		Destroy(NetworkManagerGameObject);
 		NetworkManager.Shutdown();
-		NetworkManagerHUD hud = FindObjectOfType<NetworkManagerHUD>();
-		if (hud != null) {
-			hud.showGUI = false;
-		}
 		SceneManager.LoadScene("Main");
 	}
 	

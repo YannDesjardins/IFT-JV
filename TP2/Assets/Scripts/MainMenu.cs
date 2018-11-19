@@ -12,10 +12,6 @@ public class MainMenu : MonoBehaviour {
 
 	public void StartGame (){
 		SceneManager.LoadScene("Game");
-		NetworkManagerHUD hud = FindObjectOfType<NetworkManagerHUD>();
-		if (hud != null) {
-			hud.showGUI = true;
-		}
 	}
 
 	public void QuitGame (){
