@@ -15,7 +15,7 @@ public class PlayerController : NetworkBehaviour {
 		{
 			return;
 		}
-
+			
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
 		var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f;
 
@@ -49,7 +49,7 @@ public class PlayerController : NetworkBehaviour {
 			bulletSpawn.rotation);
 
 		// Add velocity to the bullet
-		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 20;
+		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
 
 		// Spawn the bullet on the Clients
 		NetworkServer.Spawn(bullet);

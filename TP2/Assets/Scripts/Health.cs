@@ -57,7 +57,7 @@ public class Health : NetworkBehaviour {
 		if (isLocalPlayer)
 		{
 			spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+			transform.position = spawnPoint;
 		}
-		transform.position = spawnPoint;
 	}
 }
