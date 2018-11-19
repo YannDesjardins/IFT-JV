@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class MainMenu : MonoBehaviour {
+public class GameMenu : MonoBehaviour {
 	
-	void Start (){
-	Time.timeScale = 1;
-	}
 
-	public void StartGame (){
-		SceneManager.LoadScene("Game");
+	public void MainMenu (){
+		
+
+
+		SceneManager.UnloadSceneAsync ("Game");
+		NetworkManager.Shutdown();
 		NetworkManagerHUD hud = FindObjectOfType<NetworkManagerHUD>();
 		if (hud != null) {
-			hud.showGUI = true;
+			hud.showGUI = false;
 		}
+		SceneManager.LoadScene("Main");
 	}
-
+	
 	public void QuitGame (){
 		Application.Quit ();
 	}

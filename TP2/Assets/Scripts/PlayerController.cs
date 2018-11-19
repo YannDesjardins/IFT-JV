@@ -10,7 +10,7 @@ public class PlayerController : NetworkBehaviour {
 	public float rateOfFire;
 	private float timeOfFire;
 
-	void Update () {
+	void FixedUpdate () {
 		if (!isLocalPlayer)
 		{
 			return;
@@ -38,6 +38,7 @@ public class PlayerController : NetworkBehaviour {
 			CmdFire();
 			timeOfFire=Time.time+rateOfFire;
 		}
+			
 	}
 	[Command]
 	void CmdFire()
