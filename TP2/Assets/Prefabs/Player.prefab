@@ -39,11 +39,11 @@ GameObject:
   - component: {fileID: 33509082200354584}
   - component: {fileID: 23114280217031358}
   - component: {fileID: 136181987075609210}
-  - component: {fileID: 114530914383393152}
   - component: {fileID: 114125393885006410}
   - component: {fileID: 114034560654403208}
-  - component: {fileID: 114032390862248044}
   - component: {fileID: 54418565584524632}
+  - component: {fileID: 114530914383393152}
+  - component: {fileID: 114032390862248044}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnDeath: 0
-  scoreTxt: {fileID: 0}
   currentHealth: 100
   healthBar: {fileID: 224133388230511216}
 --- !u!114 &114034560654403208

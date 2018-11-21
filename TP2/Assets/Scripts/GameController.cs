@@ -4,26 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class GameController : MonoBehaviour {
+public class GameController : NetworkBehaviour {
 
 	public GameObject NetworkManagerGameObject;
 	public GameObject gameOverText;
 
 	void FixedUpdate () {
 		if (StaticGameStats.EnemyCount == 0) {
-			GameOver ();
+			RpcGameOver ();
 		}
 	}
 
-	private void GameOver (){
+	[ClientRpc]
+	private void RpcGameOver (){
 		
 		gameOverText.SetActive (true);
 
-		Invoke ("QuitGameScene", 2f);
+		Invoke ("RpcQuitGameScene", 2f);
 
 	}
 
-	private void QuitGameScene(){
+	[ClientRpc]
+	private void RpcQuitGameScene(){
 		
 		Destroy(NetworkManagerGameObject);
 		NetworkManager.Shutdown();
