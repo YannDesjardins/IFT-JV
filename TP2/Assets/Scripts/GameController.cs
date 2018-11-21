@@ -25,9 +25,16 @@ public class GameController : NetworkBehaviour {
 
 		if (StaticGameStats.EnemyCount == 0) {
 			RpcGameOver ();
+			Invoke ("DedicatedServerShutdown", 3f);
 		}
 	}
 		
+	private void DedicatedServerShutdown (){
+		
+		Destroy(NetworkManagerGameObject);
+		NetworkManager.Shutdown();
+		SceneManager.LoadScene("Main");
+	}
 
 	[ClientRpc]
 	private void RpcGameOver (){

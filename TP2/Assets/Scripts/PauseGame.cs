@@ -13,11 +13,13 @@ public class PauseGame : NetworkBehaviour {
 
 		if (Input.GetKeyDown ("escape")) {
 
-			if (isServer) {
+			if (isServer && isClient) {
 				RpcPauseGame ();
-			}
-			else if (isClient) {
+			} else if (isClient) {
 				OpenMenu ();
+			} else if (isServer) {
+				RpcPauseGame ();
+				DedicatedServerPauseGame ();
 			}
 
 		}
@@ -36,6 +38,21 @@ public class PauseGame : NetworkBehaviour {
 		}    
 
 	}
+
+	private void DedicatedServerPauseGame (){
+		if (pause == false) {
+			pause = true;
+			Time.timeScale = 0;
+			pauseMenu.SetActive (pause);
+		}
+		else if (pause == true) {
+			pause = false;
+			Time.timeScale = 1;
+			pauseMenu.SetActive (pause);
+		}    
+
+	}
+
 	private void OpenMenu (){
 		if (pauseMenu.activeSelf){
 			pauseMenu.SetActive (false);
