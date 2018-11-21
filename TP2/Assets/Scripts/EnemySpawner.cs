@@ -6,10 +6,11 @@ using UnityEngine.Networking;
 public class EnemySpawner : NetworkBehaviour {
 
 	public GameObject enemyPrefab;
-	public int numberOfEnemies;
+	private int numberOfEnemies;
 
 	public override void OnStartServer()
 	{
+		numberOfEnemies = StaticGameStats.EnemyCount;
 		for (int i=0; i < numberOfEnemies; i++)
 		{
 			var spawnPosition = new Vector3(

@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnDeath: 1
-  currentHealth: 100
+  currentHealth: 10
   healthBar: {fileID: 224308415245724862}
 --- !u!136 &136580538519889982
 CapsuleCollider:

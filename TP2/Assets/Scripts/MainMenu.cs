@@ -6,11 +6,14 @@ using UnityEngine.Networking;
 
 public class MainMenu : MonoBehaviour {
 	
+
 	void Start (){
 	Time.timeScale = 1;
 	}
 
 	public void StartGame (){
+
+		StaticGameStats.EnemyCount = StaticGameStats.EnemyMax;
 		SceneManager.LoadScene("Game");
 	}
 
