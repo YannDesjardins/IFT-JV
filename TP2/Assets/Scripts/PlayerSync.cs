@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// Source: https://www.youtube.com/playlist?list=PLwyZdDTyvucyAeJ_rbu_fbiUtGOVY55BG
+
 public class PlayerSync : NetworkBehaviour {
 
 	[SyncVar]
@@ -17,7 +19,6 @@ public class PlayerSync : NetworkBehaviour {
 	private Quaternion lastRotation;
 	private float thresholdPosition = 0.5f;
 	private float thresholdRotation = 5;
-
 
 
 	void FixedUpdate () {
