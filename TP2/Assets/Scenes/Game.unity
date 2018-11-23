@@ -804,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4a6084a8cfb97429a02fc04153021a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1181753216987308, guid: 1fa272c5676b4d94aa7e8914aa5aeb84,
+  enemyPrefab: {fileID: 1067823978604730, guid: 268047d105356124abb51d7d908447be,
     type: 2}
 --- !u!114 &807796692
 MonoBehaviour:
@@ -997,6 +997,7 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226, type: 2}
   - {fileID: 1181753216987308, guid: 1fa272c5676b4d94aa7e8914aa5aeb84, type: 2}
+  - {fileID: 1067823978604730, guid: 268047d105356124abb51d7d908447be, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

@@ -44,7 +44,6 @@ public class Health : NetworkBehaviour {
             currentHealth -= amount;
             if (currentHealth <= 0)
             {
-                Debug.Log("enemiesRemaining");
                 if (destroyOnDeath)
                 {
 

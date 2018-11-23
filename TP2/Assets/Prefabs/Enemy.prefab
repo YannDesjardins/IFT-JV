@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 136580538519889982}
   - component: {fileID: 114228805821321418}
   - component: {fileID: 114427467293794284}
+  - component: {fileID: 114533564376260932}
   - component: {fileID: 114967069399588774}
-  - component: {fileID: 114728919236574114}
   - component: {fileID: 114297106687636534}
   - component: {fileID: 114878537214700194}
   - component: {fileID: 114015611725562982}
@@ -472,6 +472,21 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114533564376260932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181753216987308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91498378085ad2946aefce98d3d356aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 2
+  sightRange: 15
+  aggroTime: 2
 --- !u!114 &114657532313299386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -488,22 +503,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114728919236574114
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1181753216987308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafb75bf2401c844c838fdbbe2c5bed9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  rotationSpeed: 2
-  pathfinder: {fileID: 0}
-  patrolPath: {fileID: 0}
-  sightRange: 25
 --- !u!114 &114878537214700194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30c7bfa656f83244843bcc4480c0f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invincibilityTime: 0
   destroyOnDeath: 1
   currentHealth: 30
   healthBar: {fileID: 224308415245724862}

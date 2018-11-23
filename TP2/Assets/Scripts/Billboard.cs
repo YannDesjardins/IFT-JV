@@ -6,7 +6,6 @@ using UnityEngine;
 public class Billboard : MonoBehaviour {
 
 	void Start (){
-		Debug.Log (Camera.main);
 	}
 
 	void Update () {
