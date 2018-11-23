@@ -7,13 +7,15 @@ using UnityEngine.Networking;
 public class Health : NetworkBehaviour {
 
 	public const int maxHealth = 100;
-	public bool destroyOnDeath;
+    public float invincibilityTime;
+    public bool destroyOnDeath;
 
 	[SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
 
 	public RectTransform healthBar;
 
+    private float timeLastHit = 0;
 	private NetworkStartPosition[] spawnPoints;
 
 	void Start ()
@@ -24,30 +26,41 @@ public class Health : NetworkBehaviour {
 		}
 	}
 
-	public void TakeDamage(int amount)
+    private void Update()
+    {
+        timeLastHit += Time.deltaTime;
+    }
+
+    public void TakeDamage(int amount)
 	{
 		if (!isServer)
 		{
 			return;
 		}
 
-		currentHealth -= amount;
-		if (currentHealth <= 0)
-		{
-			Debug.Log ("enemiesRemaining");
-			if (destroyOnDeath) {
+        if (timeLastHit > invincibilityTime)
+        {
+            timeLastHit = 0;
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                Debug.Log("enemiesRemaining");
+                if (destroyOnDeath)
+                {
 
-				StaticGameStats.EnemyCount--;
-				Destroy (gameObject);
+                    StaticGameStats.EnemyCount--;
+                    Destroy(gameObject);
 
 
-			} else {
-				currentHealth = maxHealth;
+                }
+                else
+                {
+                    currentHealth = maxHealth;
 
-				RpcRespawn ();
-			}
-		}
-			
+                    RpcRespawn();
+                }
+            }
+        }	
 	}
 	void OnChangeHealth (int health)
 	{

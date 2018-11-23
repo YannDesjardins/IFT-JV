@@ -9,12 +9,14 @@ public class PatrolPath : MonoBehaviour {
     private Vector3 currentPosition;
     private Vector3 currentDestination;
     private bool patrolling;
-    private float distancePatrol = 2;
+    private bool pursuing;
+    private float distancePatrol = 1;
 
     public void Start()
     {
         patrolling = true;
         currentDestination = end;
+        currentPosition = transform.position;
     }
 
     public void StopPatrol()
@@ -42,7 +44,6 @@ public class PatrolPath : MonoBehaviour {
             if(distance < distancePatrol)
             {
                 //changing patrol target
-                Debug.Log("changing patrol target");
                 if (currentDestination.Equals(begin)) { currentDestination = end; }
                 else { currentDestination = begin; }
             }
@@ -54,7 +55,6 @@ public class PatrolPath : MonoBehaviour {
             if(distance < distancePatrol)
             {
                 patrolling = true;
-                Debug.Log("Resuming patrol");
             }
 
         }

@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafb75bf2401c844c838fdbbe2c5bed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   rotationSpeed: 2
   pathfinder: {fileID: 0}
   patrolPath: {fileID: 0}
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnDeath: 1
-  currentHealth: 10
+  currentHealth: 30
   healthBar: {fileID: 224308415245724862}
 --- !u!136 &136580538519889982
 CapsuleCollider:

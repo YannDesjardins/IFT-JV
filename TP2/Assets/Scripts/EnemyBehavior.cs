@@ -11,15 +11,19 @@ public class EnemyBehavior : MonoBehaviour {
     public PatrolPath patrolPath;
     public float sightRange;
 
+    private float inRangeTime=0;
+    private float outOfRangeTime=0;
+    private bool aggro;
     private GameObject[] players;
     private Vector3 target;
 
+
 	// Use this for initialization
 	void Start () {
+        aggro = false;
         target = Vector3.zero;
         patrolPath = GetComponent<PatrolPath>();
         pathfinder = GetComponent<EnemyPathfinder>();
-
 	}
 	
 	// Update is called once per frame
@@ -43,11 +47,10 @@ public class EnemyBehavior : MonoBehaviour {
     {
         players = GameObject.FindGameObjectsWithTag("Player");
 
-        Patrol();
         if (players != null)
         {
             FindPlayerWithinRange();
-            if (players.Length > 0)
+            if (aggro)
             {
                 patrolPath.StopPatrol();
                 FindClosestPlayer();
@@ -57,12 +60,34 @@ public class EnemyBehavior : MonoBehaviour {
                 Patrol();
             }
         }
-
+        Debug.Log("TARGET:" + target);
     }
 
     private void FindPlayerWithinRange()
     {
-        players = players.Where(p => (p.transform.position - transform.position).magnitude <= sightRange).ToArray();
+        int playerInRange = players.Where(p => (p.transform.position - transform.position).magnitude <= sightRange).ToArray().Length;
+        if (playerInRange > 0 && !aggro)
+        {
+            inRangeTime += Time.deltaTime;
+            float timeDiff = outOfRangeTime - Time.deltaTime;
+            outOfRangeTime = timeDiff > 0 ? timeDiff : 0;
+            if(inRangeTime > 2)
+            {
+                aggro = true;
+                inRangeTime = 0;
+            }
+        }
+        else if (playerInRange == 0 && aggro)
+        {
+            outOfRangeTime += Time.deltaTime;
+            float timeDiff = inRangeTime - Time.deltaTime;
+            inRangeTime = timeDiff > 0 ? timeDiff : 0;
+            if (outOfRangeTime > 2)
+            {
+                aggro = false;
+                outOfRangeTime = 0;
+            }
+        }
     }
 
     private void FindClosestPlayer()
@@ -96,6 +121,20 @@ public class EnemyBehavior : MonoBehaviour {
         else
         {
             return target;
+        }
+        
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        var hit = collision.gameObject;
+        if (hit.tag == "Player")
+        {
+            var health = hit.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(10);
+            }
         }
     }
 }
