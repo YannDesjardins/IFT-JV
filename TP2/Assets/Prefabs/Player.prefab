@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 54418565584524632}
   - component: {fileID: 114530914383393152}
   - component: {fileID: 114032390862248044}
+  - component: {fileID: 114191487473217974}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -372,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 0.033333335
+  m_SendInterval: 0.04761905
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -413,6 +414,18 @@ MonoBehaviour:
     i15: 67
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114191487473217974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088195250992208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e29c134ae8bab84ebf21ce06268e390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTransform: {fileID: 4804792666501552}
 --- !u!114 &114337294707661366
 MonoBehaviour:
   m_ObjectHideFlags: 1
