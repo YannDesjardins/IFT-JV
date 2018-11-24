@@ -16,10 +16,10 @@ public abstract class EnemyBehavior : NetworkBehaviour
     protected EnemyMovement enemyMovement;
 
     public float speed = 5;
-    public float rotationSpeed = 2f;
+    public float rotationSpeed = 5f;
     public float detectionRange = 20;
     public float aggroTime = 2f;
-    public float lowHealthThreshold = 10f;
+    public float lowHealthThreshold = 30f;
 
     protected float timeSpotted = 0;
     protected float timeHidden = 0;
@@ -32,31 +32,14 @@ public abstract class EnemyBehavior : NetworkBehaviour
     protected Vector3 moveTarget;
 
 
-    protected abstract void ChasePlayer();
 
-    protected void Patrol()
-    {
-        moveTarget = patrolPath.Patrol();
-        enemyMovement += MoveTowardTarget;
-        if (FindPlayerVisible() || FindPlayerWithinRange(detectionRange))
-        {
-            if (IsFound())
-            {
-                patrolPath.StopPatrol();
-                stateAction = ChasePlayer;
-            }
-        }
-        else
-        {
-            timeSpotted = 0;
-        }
-    }
 
     // Use this for initialization
-    void Start()
+    protected void Start()
     {
         health = GetComponent<Health>();
         stateAction = Patrol;
+
         patrolPath = GetComponent<PatrolPath>();
         pathfinder = GetComponent<EnemyPathfinder>();
     }
@@ -78,6 +61,26 @@ public abstract class EnemyBehavior : NetworkBehaviour
         enemyMovement = null;
     }
 
+    protected abstract void ChasePlayer();
+
+    protected void Patrol()
+    {
+        moveTarget = patrolPath.Patrol();
+        enemyMovement += MoveTowardTarget;
+        if (FindPlayerVisible() || FindPlayerWithinRange(detectionRange))
+        {
+            if (IsFound())
+            {
+                patrolPath.StopPatrol();
+                stateAction = ChasePlayer;
+            }
+        }
+        else
+        {
+            timeSpotted = 0;
+        }
+    }
+
     protected bool FindPlayerWithinRange(float range)
     {
         int playerInRange = players.Where(p => (p.transform.position - transform.position).magnitude <= range).ToArray().Length;
@@ -97,6 +100,23 @@ public abstract class EnemyBehavior : NetworkBehaviour
                 min = go;
             }
         }
+        return min.transform.position;
+    }
+
+    protected Vector3 FindClosestPlayer(out GameObject player)
+    {
+        GameObject min = players[0];
+        float minDistance = (min.transform.position - transform.position).magnitude;
+        foreach (GameObject go in players)
+        {
+            float distance = (go.transform.position - transform.position).magnitude;
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                min = go;
+            }
+        }
+        player = min;
         return min.transform.position;
     }
 

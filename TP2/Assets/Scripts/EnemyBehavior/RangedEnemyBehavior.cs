@@ -7,100 +7,25 @@ public class RangedEnemyBehavior : EnemyBehavior
 {
     public float shootRange = 20;
     public float fleeingRange = 15;
-    public float shootingSpeed = 0.1f;
+    public float shootingSpeed = 0.5f;
     public Transform[] bulletSpawn;
     public GameObject bulletPrefab;
 
     private float lastShot = 0;
 
-    
+    protected new void Start()
+    {
+        base.Start();
+        bulletSpawn = new Transform[2];
+        bulletSpawn[0] = gameObject.GetComponentInChildren<Transform>().Find("BulletSpawn1");
+        bulletSpawn[1] = gameObject.GetComponentInChildren<Transform>().Find("BulletSpawn2");
+    }
+
     protected override void ChasePlayer()
     {
-        //State action
-        target = FindClosestPlayer();
-        moveTarget = target;
 
-        enemyAction += MoveTowardTarget;
-        if (IsPlayerWithinSight())
-        {
-            enemyMovement += ShootTarget;
-        }
-
-        //State Check
-        if (FindPlayerVisible() && FindPlayerWithinRange(shootRange))
-        {
-            stateAction = AttackPlayer;
-        }
-        if (!FindPlayerVisible() || !FindPlayerWithinRange(detectionRange))
-        {
-            if (IsHidden())
-            {
-                stateAction = Patrol;
-            }
-        }
-        else
-        {
-            timeHidden = 0;
-        }
-        if (IsLowOnHealth())
-        {
-            stateAction = PlaySafe;
-        }
     }
 
-    void AttackPlayer()
-    {
-        //State action
-        target = FindClosestPlayer();
-        moveTarget = target;
-
-        enemyAction += RotateTowardTarget;
-        enemyAction += ShootTarget;
-        //State Check
-
-        if (IsLowOnHealth())
-        {
-            stateAction = PlaySafe;
-        }
-        if (!IsPlayerWithinSight())
-        {
-            stateAction = ChasePlayer;
-        }
-    }
-
-    void PlaySafe()
-    {
-        //State Action
-        target = FindClosestPlayer();
-        enemyAction = MoveBackward;
-        if (IsPlayerWithinSight())
-        {
-            enemyAction += ShootTarget;
-        }
-
-        //State Check
-        if (!IsLowOnHealth())
-        {
-            stateAction = Patrol;
-        }
-        if (FindPlayerVisible())
-        {
-            stateAction = RunAway;
-        }
-    }
-
-
-    void RunAway()
-    {
-        if (true)
-        {
-            stateAction = Patrol;
-        }
-        if (true)
-        {
-            stateAction = PlaySafe;
-        }
-    }
     protected void ShootTarget(Vector3 target)
     {
         lastShot += Time.deltaTime;

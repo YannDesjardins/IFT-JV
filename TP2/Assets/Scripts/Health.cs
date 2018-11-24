@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 public class Health : NetworkBehaviour {
 
 	public const int maxHealth = 100;
+    public int healthRegen = 0;
     public float invincibilityTime;
     public bool destroyOnDeath;
 
@@ -16,6 +17,7 @@ public class Health : NetworkBehaviour {
 	public RectTransform healthBar;
 
     private float timeLastHit = 0;
+    private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
 
 	void Start ()
@@ -29,6 +31,7 @@ public class Health : NetworkBehaviour {
     private void Update()
     {
         timeLastHit += Time.deltaTime;
+        Regen();
     }
 
     public void TakeDamage(int amount)
@@ -65,6 +68,20 @@ public class Health : NetworkBehaviour {
 	{
 		healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
 	}
+
+    private void Regen()
+    {
+        regenTime += Time.deltaTime;
+        if (regenTime > 1)
+        {
+            regenTime = 0;
+            currentHealth += healthRegen;
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+    }
 
 	[ClientRpc]
 	void RpcRespawn()

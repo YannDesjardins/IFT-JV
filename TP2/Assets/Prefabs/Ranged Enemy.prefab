@@ -24,11 +24,10 @@ GameObject:
   - component: {fileID: 136288914505096820}
   - component: {fileID: 114090914210211648}
   - component: {fileID: 114839156315932812}
-  - component: {fileID: 114014328496650370}
+  - component: {fileID: 114702840883161512}
   - component: {fileID: 114469799517372242}
   - component: {fileID: 114081209735567740}
   - component: {fileID: 114962987058025102}
-  - component: {fileID: 114599206269608026}
   - component: {fileID: 54387301721875538}
   m_Layer: 0
   m_Name: Ranged Enemy
@@ -82,7 +81,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4650203480657864}
   m_Layer: 0
-  m_Name: Bullet Spawn (1)
+  m_Name: BulletSpawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4800919910330162}
   m_Layer: 0
-  m_Name: Bullet Spawn
+  m_Name: BulletSpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,29 +523,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114014328496650370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067823978604730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bffbac0a44a74184aa03c5e4c0418d8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
-  rotationSpeed: 5
-  detectionRange: 20
-  aggroTime: 2
-  lowHealthThreshold: 10
-  shootRange: 10
-  shootingSpeed: 0.1
-  bulletSpawn:
-  - {fileID: 4800919910330162}
-  - {fileID: 4650203480657864}
-  bulletPrefab: {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226,
-    type: 2}
 --- !u!114 &114081209735567740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,9 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30c7bfa656f83244843bcc4480c0f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthRegen: 0
   invincibilityTime: 0
   destroyOnDeath: 1
-  currentHealth: 50
+  currentHealth: 60
   healthBar: {fileID: 224037084106571232}
 --- !u!114 &114538691428548574
 MonoBehaviour:
@@ -666,17 +643,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114599206269608026
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067823978604730}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be60c57ff42326b40bc856808560cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114672566514127184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,6 +659,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114702840883161512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067823978604730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbb237a2f169a0498d8d331cbb38e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226,
+    type: 2}
 --- !u!114 &114767303904727632
 MonoBehaviour:
   m_ObjectHideFlags: 1

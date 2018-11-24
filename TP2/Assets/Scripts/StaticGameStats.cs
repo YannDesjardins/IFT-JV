@@ -2,6 +2,7 @@
 
 	private static int enemyMax = 10;
 	private static int enemyCount = 10;
+    private static int difficulty = 1;
 
 
 	public static int EnemyMax
@@ -27,4 +28,17 @@
 			enemyCount = value;
 		}
 	}
+
+    public static int Difficulty
+    {
+        get
+        {
+            return difficulty;
+        }
+
+        set
+        {
+            difficulty = value;
+        }
+    }
 }
