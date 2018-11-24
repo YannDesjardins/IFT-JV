@@ -5,11 +5,17 @@ using UnityEngine.Networking;
 
 public class PauseGame : NetworkBehaviour {
 	
-	bool pause = false;
+	[SyncVar]
+	private int timeScale = StaticGameStats.TimeScale;
+
+	[SyncVar]
+	private bool pause = false;
+
 
 	public GameObject pauseMenu;
 
 	void Update () {
+		Time.timeScale = timeScale;
 
 		if (Input.GetKeyDown ("escape")) {
 
@@ -28,13 +34,13 @@ public class PauseGame : NetworkBehaviour {
 	private void RpcPauseGame (){
 		if (pause == false) {
 			pause = true;
-			Time.timeScale = 0;
-			pauseMenu.SetActive (pause);
+			timeScale = 0;
+			pauseMenu.SetActive (true);
 		}
 		else if (pause == true) {
 			pause = false;
-			Time.timeScale = 1;
-			pauseMenu.SetActive (pause);
+			timeScale = 1;
+			pauseMenu.SetActive (false);
 		}    
 
 	}
@@ -42,13 +48,13 @@ public class PauseGame : NetworkBehaviour {
 	private void DedicatedServerPauseGame (){
 		if (pause == false) {
 			pause = true;
-			Time.timeScale = 0;
-			pauseMenu.SetActive (pause);
+			timeScale = 0;
+			pauseMenu.SetActive (true);
 		}
 		else if (pause == true) {
 			pause = false;
-			Time.timeScale = 1;
-			pauseMenu.SetActive (pause);
+			timeScale = 1;
+			pauseMenu.SetActive (false);
 		}    
 
 	}
