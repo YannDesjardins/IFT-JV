@@ -5,33 +5,34 @@ using UnityEngine.Networking;
 
 public class RangedEnemyBehavior : EnemyBehavior
 {
-    public float shootRange;
-    public float shootingSpeed = 1;
+    public float shootRange = 20;
+    public float fleeingRange = 15;
+    public float shootingSpeed = 0.5f;
     public Transform[] bulletSpawn;
     public GameObject bulletPrefab;
 
     private float lastShot = 0;
-    
-    protected override void ExecuteAction()
+
+    protected new void Start()
+    {
+        base.Start();
+        bulletSpawn = new Transform[2];
+        bulletSpawn[0] = gameObject.GetComponentInChildren<Transform>().Find("BulletSpawn1");
+        bulletSpawn[1] = gameObject.GetComponentInChildren<Transform>().Find("BulletSpawn2");
+    }
+
+    protected override void ChasePlayer()
+    {
+
+    }
+
+    protected void ShootTarget(Vector3 target)
     {
         lastShot += Time.deltaTime;
-
-        moveTarget = FindMovementTarget(moveTarget);
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-                   Quaternion.LookRotation(moveTarget - transform.position), rotationSpeed * Time.deltaTime);
-
-        if (!aggro || (aggro && (target - transform.position).magnitude > 5))
+        if (lastShot > shootingSpeed)
         {
-            transform.position += transform.forward * speed * Time.deltaTime;
-        }
-
-        if (FindPlayerWithinSight())
-        {
-            if (lastShot > shootingSpeed)
-            {
-                if (isServer)
-                    CmdFire();
-            }
+            lastShot = 0;
+            CmdFire();
         }
     }
 
