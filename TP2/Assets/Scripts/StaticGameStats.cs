@@ -1,10 +1,20 @@
-﻿public static class StaticGameStats{
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public static class StaticGameStats{
 
 	private static int enemyMax = 10;
 	private static int enemyCount = 10;
+    private static Dictionary<string, KeyCode> controls = new Dictionary<string, KeyCode>()
+    {
+        { "ForwardButton", KeyCode.W},
+        { "BackwardButton", KeyCode.S },
+        {"LeftButton", KeyCode.A },
+        {"RightButton", KeyCode.D }
+    };
 
 
-	public static int EnemyMax
+    public static int EnemyMax
 	{
 		get 
 		{
@@ -27,4 +37,16 @@
 			enemyCount = value;
 		}
 	}
+
+    public static Dictionary<string, KeyCode> Controls
+    {
+        get
+        {
+            return controls;
+        }
+        set
+        {
+            controls = value;
+        }
+    }
 }
