@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class PauseGame : NetworkBehaviour {
 	
 	[SyncVar]
-	private int timeScale = StaticGameStats.TimeScale;
+	private int timeScale = 1;
 
 	[SyncVar]
 	private bool pause = false;
