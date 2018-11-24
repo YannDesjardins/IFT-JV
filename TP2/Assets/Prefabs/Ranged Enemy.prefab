@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 136288914505096820}
   - component: {fileID: 114090914210211648}
   - component: {fileID: 114839156315932812}
-  - component: {fileID: 114541826450135970}
+  - component: {fileID: 114014328496650370}
   - component: {fileID: 114469799517372242}
   - component: {fileID: 114081209735567740}
   - component: {fileID: 114962987058025102}
@@ -524,6 +524,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114014328496650370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067823978604730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffbac0a44a74184aa03c5e4c0418d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  rotationSpeed: 5
+  detectionRange: 20
+  aggroTime: 2
+  lowHealthThreshold: 10
+  shootRange: 10
+  shootingSpeed: 0.1
+  bulletSpawn:
+  - {fileID: 4800919910330162}
+  - {fileID: 4650203480657864}
+  bulletPrefab: {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226,
+    type: 2}
 --- !u!114 &114081209735567740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,7 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invincibilityTime: 0
   destroyOnDeath: 1
-  currentHealth: 30
+  currentHealth: 50
   healthBar: {fileID: 224037084106571232}
 --- !u!114 &114538691428548574
 MonoBehaviour:
@@ -643,28 +666,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114541826450135970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067823978604730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fac46feccd710a04f97ac51376fc4a49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
-  rotationSpeed: 5
-  sightRange: 20
-  aggroTime: 2
-  shootRange: 10
-  shootingSpeed: 1
-  bulletSpawn:
-  - {fileID: 4800919910330162}
-  - {fileID: 4650203480657864}
-  bulletPrefab: {fileID: 1388997296783056, guid: 20ea07e92ba9a194bafc8557e9cc1226,
-    type: 2}
 --- !u!114 &114599206269608026
 MonoBehaviour:
   m_ObjectHideFlags: 1

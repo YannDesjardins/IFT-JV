@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class RangedEnemyBehavior : EnemyBehavior
+public class BadRangedEnemyBehavior : EnemyBehavior
 {
-    public float shootRange = 20;
-    public float fleeingRange = 15;
-    public float shootingSpeed = 0.1f;
+    public float shootRange = 5;
+    public float shootingSpeed = 0.01f;
     public Transform[] bulletSpawn;
     public GameObject bulletPrefab;
 
     private float lastShot = 0;
 
-    
+
     protected override void ChasePlayer()
     {
         //State action
@@ -42,10 +41,6 @@ public class RangedEnemyBehavior : EnemyBehavior
         {
             timeHidden = 0;
         }
-        if (IsLowOnHealth())
-        {
-            stateAction = PlaySafe;
-        }
     }
 
     void AttackPlayer()
@@ -57,56 +52,20 @@ public class RangedEnemyBehavior : EnemyBehavior
         enemyAction += RotateTowardTarget;
         enemyAction += ShootTarget;
         //State Check
-
-        if (IsLowOnHealth())
-        {
-            stateAction = PlaySafe;
-        }
-        if (!IsPlayerWithinSight())
+        if (!FindPlayerWithinRange(shootRange))
         {
             stateAction = ChasePlayer;
         }
     }
 
-    void PlaySafe()
-    {
-        //State Action
-        target = FindClosestPlayer();
-        enemyAction = MoveBackward;
-        if (IsPlayerWithinSight())
-        {
-            enemyAction += ShootTarget;
-        }
-
-        //State Check
-        if (!IsLowOnHealth())
-        {
-            stateAction = Patrol;
-        }
-        if (FindPlayerVisible())
-        {
-            stateAction = RunAway;
-        }
-    }
-
-
-    void RunAway()
-    {
-        if (true)
-        {
-            stateAction = Patrol;
-        }
-        if (true)
-        {
-            stateAction = PlaySafe;
-        }
-    }
     protected void ShootTarget(Vector3 target)
     {
-        lastShot += Time.deltaTime;
-        if (lastShot > shootingSpeed)
+        lastShot -= Time.deltaTime;
+        if (lastShot < 0)
         {
-            lastShot = 0;
+            Debug.Log(lastShot);
+            lastShot = shootingSpeed;
+            Debug.Log(lastShot);
             CmdFire();
         }
     }
@@ -116,7 +75,6 @@ public class RangedEnemyBehavior : EnemyBehavior
     {
         for (int i = 0; i < bulletSpawn.Length; i++)
         {
-            lastShot = 0;
             var bullet = (GameObject)Instantiate(
             bulletPrefab,
             bulletSpawn[i].position,

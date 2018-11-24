@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class MeleeEnemyBehavior : EnemyBehavior
 {
-
-    protected override void ExecuteAction()
+    protected override void ChasePlayer()
     {
-        moveTarget = FindMovementTarget(target);
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-               Quaternion.LookRotation(moveTarget - transform.position), rotationSpeed * Time.deltaTime);
-        transform.position += transform.forward * speed * Time.deltaTime;
+        //State action
+        moveTarget = FindClosestPlayer();
+        enemyMovement += MoveTowardTarget;
+
+        if (!FindPlayerWithinRange(detectionRange))
+        {
+            if (IsHidden())
+            {
+                stateAction = Patrol;
+            }  
+        }
+        else
+        {
+            timeHidden = 0;
+        }
     }
 
     void OnCollisionEnter(Collision collision)

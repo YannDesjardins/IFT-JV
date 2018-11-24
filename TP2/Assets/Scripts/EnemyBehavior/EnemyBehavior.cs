@@ -6,27 +6,57 @@ using UnityEngine.Networking;
 
 public abstract class EnemyBehavior : NetworkBehaviour
 {
+    protected delegate void StateAction();
+    protected StateAction stateAction;
 
-    public float speed;
+    protected delegate void EnemyAction(Vector3 position);
+    protected EnemyAction enemyAction;
+
+    protected delegate void EnemyMovement(Vector3 position);
+    protected EnemyMovement enemyMovement;
+
+    public float speed = 5;
     public float rotationSpeed = 2f;
-    public float sightRange;
-    public float aggroTime;
+    public float detectionRange = 20;
+    public float aggroTime = 2f;
+    public float lowHealthThreshold = 10f;
 
+    protected float timeSpotted = 0;
+    protected float timeHidden = 0;
+    protected Health health;
     protected EnemyPathfinder pathfinder;
     protected PatrolPath patrolPath;
-    protected float inRangeTime = 0;
-    protected float outOfRangeTime = 0;
-    protected bool aggro;
     protected GameObject[] players;
+    protected List<GameObject> playersVisible = new List<GameObject>();
     protected Vector3 target;
     protected Vector3 moveTarget;
-    protected GameObject targetPlayer;
 
+
+    protected abstract void ChasePlayer();
+
+    protected void Patrol()
+    {
+        moveTarget = patrolPath.Patrol();
+        enemyMovement += MoveTowardTarget;
+        if (FindPlayerVisible() || FindPlayerWithinRange(detectionRange))
+        {
+            if (IsFound())
+            {
+                patrolPath.StopPatrol();
+                stateAction = ChasePlayer;
+            }
+        }
+        else
+        {
+            timeSpotted = 0;
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
-        aggro = false;
+        health = GetComponent<Health>();
+        stateAction = Patrol;
         patrolPath = GetComponent<PatrolPath>();
         pathfinder = GetComponent<EnemyPathfinder>();
     }
@@ -34,59 +64,24 @@ public abstract class EnemyBehavior : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChooseAction();
-        ExecuteAction();
+        players = GameObject.FindGameObjectsWithTag("Player");
+        stateAction();
+        if (enemyAction != null)
+        {
+            enemyAction(target);
+        }
+        enemyAction = null;
+        if (enemyMovement != null)
+        {
+            enemyMovement(moveTarget);
+        }
+        enemyMovement = null;
     }
 
-    protected abstract void ExecuteAction();
-
-    protected void ChooseAction()
+    protected bool FindPlayerWithinRange(float range)
     {
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            if (players != null)
-            {
-                FindPlayerWithinRange();
-                if (aggro)
-                {
-                    patrolPath.StopPatrol();
-                    target = FindClosestPlayer();
-                    moveTarget = target;
-                }
-                else
-                {
-                    moveTarget = patrolPath.Patrol();
-                }
-            }
-        }
-    }
-
-
-    protected void FindPlayerWithinRange()
-    {
-        int playerInRange = players.Where(p => (p.transform.position - transform.position).magnitude <= sightRange).ToArray().Length;
-        if (playerInRange > 0 && !aggro)
-        {
-            inRangeTime += Time.deltaTime;
-            float timeDiff = outOfRangeTime - Time.deltaTime;
-            outOfRangeTime = timeDiff > 0 ? timeDiff : 0;
-            if (inRangeTime > aggroTime)
-            {
-                aggro = true;
-                inRangeTime = 0;
-            }
-        }
-        else if (playerInRange == 0 && aggro)
-        {
-            outOfRangeTime += Time.deltaTime;
-            float timeDiff = inRangeTime - Time.deltaTime;
-            inRangeTime = timeDiff > 0 ? timeDiff : 0;
-            if (outOfRangeTime > aggroTime)
-            {
-                aggro = false;
-                outOfRangeTime = 0;
-            }
-        }
+        int playerInRange = players.Where(p => (p.transform.position - transform.position).magnitude <= range).ToArray().Length;
+        return playerInRange>0;
     }
 
     protected Vector3 FindClosestPlayer()
@@ -100,10 +95,33 @@ public abstract class EnemyBehavior : NetworkBehaviour
             {
                 minDistance = distance;
                 min = go;
-                targetPlayer = go;
             }
         }
         return min.transform.position;
+    }
+
+    protected bool IsHidden()
+    {
+        bool hidden = false;
+        timeHidden += Time.deltaTime;
+        if(timeHidden > aggroTime)
+        {
+            hidden = true;
+            timeHidden = 0;
+        }
+        return hidden;
+    }
+
+    protected bool IsFound()
+    {
+        bool found = false;
+        timeSpotted += Time.deltaTime;
+        if (timeSpotted > aggroTime)
+        {
+            found = true;
+            timeHidden = 0;
+        }
+        return found;
     }
 
     protected Vector3 FindMovementTarget(Vector3 t)
@@ -120,17 +138,61 @@ public abstract class EnemyBehavior : NetworkBehaviour
 
     }
 
-    protected bool FindPlayerWithinSight()
+    protected bool IsPlayerWithinSight()
     {
         RaycastHit hit;
         Physics.Raycast(transform.position, transform.forward, out hit);
         return hit.collider.tag == "Player";
     }
 
-    private void OnDrawGizmos()
+    protected bool FindPlayerVisible()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(moveTarget, 1);
+        playersVisible.Clear();
 
+        RaycastHit hit;
+        foreach(GameObject player in players)
+        {
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            if (Physics.Raycast(transform.position, direction, out hit))
+            {
+                if (hit.collider.tag == "Player")
+                {
+                    playersVisible.Add(player);
+                }
+            }
+        }
+        if (playersVisible.Count > 0)
+        {
+            timeSpotted += aggroTime;
+        }
+        return playersVisible.Count > 0;
+    }
+
+    protected bool IsLowOnHealth()
+    {
+        return health.currentHealth <= lowHealthThreshold;
+    }
+
+    protected void MoveTowardTarget(Vector3 target)
+    {
+        Vector3 moveTarget = FindMovementTarget(target);
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+               Quaternion.LookRotation(moveTarget - transform.position), rotationSpeed * Time.deltaTime);
+        transform.position += transform.forward * speed * Time.deltaTime;
+    }
+
+    protected void MoveBackward(Vector3 target)
+    {
+        Vector3 moveTarget = FindMovementTarget(target);
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+               Quaternion.LookRotation(moveTarget - transform.position), rotationSpeed * Time.deltaTime);
+        transform.position -= transform.forward * speed/2 * Time.deltaTime;
+    }
+
+    protected void RotateTowardTarget(Vector3 target)
+    {
+        Vector3 moveTarget = FindMovementTarget(target);
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+               Quaternion.LookRotation(moveTarget - transform.position), rotationSpeed * Time.deltaTime);
     }
 }
