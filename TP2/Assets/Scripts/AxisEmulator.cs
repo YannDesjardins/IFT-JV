@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// Fortement Base sur l'exemple dans les notes de cours, adapte pour deux axes
 public class AxisEmulator : MonoBehaviour {
 
     public float AxisSensitivity = 0.09f;
@@ -21,6 +22,8 @@ public class AxisEmulator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        AxisSensitivity = StaticGameStats.Accuracy;
+
         if (Input.GetKey(StaticGameStats.Controls["ForwardButton"]))
         {
             V = Math.Min(V + AxisSensitivity, 1f);
