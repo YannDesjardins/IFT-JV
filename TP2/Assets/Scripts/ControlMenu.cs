@@ -10,7 +10,6 @@ public class ControlMenu : MonoBehaviour {
 
     public Text ForwardButton, BackwardButton, LeftButton, RightButton;
     private Dictionary<string, KeyCode> controls = StaticGameStats.Controls;
-    private System.Array values = System.Enum.GetValues(typeof(KeyCode));
     private string selectedKey;
     // Use this for initialization
     void Start () {
@@ -18,16 +17,6 @@ public class ControlMenu : MonoBehaviour {
         BackwardButton.text = controls["BackwardButton"].ToString();
         LeftButton.text = controls["LeftButton"].ToString();
         RightButton.text = controls["RightButton"].ToString();
-        values = System.Enum.GetValues(typeof(KeyCode));
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        
-        foreach (KeyCode code in values)
-        {
-            if (Input.GetKeyDown(code)) { print(System.Enum.GetName(typeof(KeyCode), code)); }
-        }
     }
 
     private void OnGUI()

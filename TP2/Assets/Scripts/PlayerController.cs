@@ -15,25 +15,37 @@ public class PlayerController : NetworkBehaviour {
 		{
 			return;
 		}
-			
-        var xx = AxisEmulator.H * Time.deltaTime * 10.0f;
-        var zz = AxisEmulator.V * Time.deltaTime * 10.0f;
+
+        float xx;
+        float zz;
+        if (StaticGameStats.UsingController)
+        {
+            xx = Input.GetAxis("HorizontalLeft") * Time.deltaTime * 10.0f;
+            zz = Input.GetAxis("VerticalLeft") * Time.deltaTime * 10.0f*(-1);
+            transform.rotation = Quaternion.LookRotation(new Vector3(xx, 0, zz));
+        }
+        else
+        {
+            xx = AxisEmulator.H * Time.deltaTime * 10.0f;
+            zz = AxisEmulator.V * Time.deltaTime * 10.0f;
+
+            //Changer direction de tire avec raycast
+            //Source: https://www.youtube.com/watch?v=lkDGk3TjsIE
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(cameraRay, out rayLength))
+            {
+                Vector3 pointToLook = cameraRay.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+        }
 
         transform.Translate(xx, 0, 0, Space.World);
 		transform.Translate(0, 0, zz, Space.World);
 
-		//Changer direction de tire avec raycast
-		//Source: https://www.youtube.com/watch?v=lkDGk3TjsIE
-		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
-		Plane groundPlane = new Plane (Vector3.up, Vector3.zero);
-		float rayLength;
-
-		if(groundPlane.Raycast(cameraRay, out rayLength)){
-			Vector3 pointToLook = cameraRay.GetPoint(rayLength);
-			transform.LookAt (new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-		}
-			
-		if (Input.GetKey(KeyCode.Mouse0)&&Time.time>timeOfFire)
+        if (Input.GetKey(KeyCode.Mouse0)&&Time.time>timeOfFire)
 		{
 			CmdFire();
 			timeOfFire=Time.time+rateOfFire;

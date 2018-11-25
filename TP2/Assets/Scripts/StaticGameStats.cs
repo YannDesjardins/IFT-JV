@@ -8,6 +8,9 @@ public static class StaticGameStats{
 	private static int enemyCount = 10;
     private static int difficulty = 1;
     private static float accuracy = 0.09f;
+    private static bool controller = false;
+    private static bool directionnal = false;
+    private static bool joystick = true;
     private static Dictionary<string, KeyCode> controls = new Dictionary<string, KeyCode>()
     {
         {"ForwardButton", KeyCode.W},
@@ -75,6 +78,45 @@ public static class StaticGameStats{
         set
         {
             accuracy = value;
+        }
+    }
+
+    public static bool Directionnal
+    {
+        get
+        {
+            return directionnal;
+        }
+
+        set
+        {
+            directionnal = value;
+        }
+    }
+
+    public static bool Joystick
+    {
+        get
+        {
+            return joystick;
+        }
+
+        set
+        {
+            joystick = value;
+        }
+    }
+
+    public static bool UsingController
+    {
+        get
+        {
+            return controller;
+        }
+
+        set
+        {
+            controller = value;
         }
     }
 }
