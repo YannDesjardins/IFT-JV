@@ -10,7 +10,7 @@ public class MeleeEnemyBehavior : EnemyBehavior
         moveTarget = FindClosestPlayer();
         enemyMovement += MoveTowardTarget;
 
-        if (!FindPlayerWithinRange(detectionRange))
+        if (!AnyPlayerWithinRange(detectionRange))
         {
             if (IsHidden())
             {

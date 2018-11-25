@@ -9,6 +9,7 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
     protected override void ChasePlayer()
     {
         //State action
+        changeColor(Color.yellow);
         target = FindClosestPlayer();
         moveTarget = target;
 
@@ -19,11 +20,15 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
         }
 
         //State Check
-        if (FindPlayerVisible() && FindPlayerWithinRange(shootRange))
+        bool playerVisible = FindPlayerVisible();
+        bool playerWithinShootRange = AnyPlayerWithinRange(shootRange);
+        bool playerWithinSightRange = AnyPlayerWithinRange(detectionRange);
+
+        if (playerVisible && playerWithinShootRange)
         {
             stateAction = AttackPlayer;
         }
-        if (!FindPlayerVisible() || !FindPlayerWithinRange(detectionRange))
+        else if (!playerVisible || !playerWithinSightRange)
         {
             if (IsHidden())
             {
@@ -45,7 +50,7 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
         enemyMovement += RotateTowardTarget;
         enemyAction += ShootTarget;
         //State Check
-        if (!FindPlayerWithinRange(shootRange))
+        if (!AnyPlayerWithinRange(shootRange))
         {
             stateAction = ChasePlayer;
         }

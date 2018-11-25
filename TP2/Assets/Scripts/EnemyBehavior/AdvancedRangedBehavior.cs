@@ -24,11 +24,19 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         }
 
         //State Check
-        if (FindPlayerVisible() && FindPlayerWithinRange(shootRange))
+        bool playerVisible = FindPlayerVisible();
+        bool playerWithinShootRange = AnyPlayerWithinRange(shootRange);
+        bool playerWithinSightRange = AnyPlayerWithinRange(detectionRange);
+
+        if (IsLowOnHealth())
+        {
+            stateAction = PlaySafe;
+        }
+        else if (playerVisible && playerWithinShootRange)
         {
             stateAction = AttackPlayer;
         }
-        if (!FindPlayerVisible() || !FindPlayerWithinRange(detectionRange))
+        else if (!playerVisible || !playerWithinSightRange)
         {
             if (IsHidden())
             {
@@ -39,10 +47,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         {
             timeHidden = 0;
         }
-        if (IsLowOnHealth())
-        {
-            stateAction = PlaySafe;
-        }
+        
     }
 
     void AttackPlayer()
@@ -65,7 +70,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         {
             stateAction = PlaySafe;
         }
-        if (!(FindPlayerVisible() && FindPlayerWithinRange(shootRange)))
+        else if (!(FindPlayerVisible() && AnyPlayerWithinRange(shootRange)))
         {
             stateAction = ChasePlayer;
         }

@@ -31,9 +31,6 @@ public abstract class EnemyBehavior : NetworkBehaviour
     protected Vector3 target;
     protected Vector3 moveTarget;
 
-
-
-
     // Use this for initialization
     protected void Start()
     {
@@ -67,7 +64,7 @@ public abstract class EnemyBehavior : NetworkBehaviour
     {
         moveTarget = patrolPath.Patrol();
         enemyMovement += MoveTowardTarget;
-        if (FindPlayerVisible() || FindPlayerWithinRange(detectionRange))
+        if (FindPlayerVisible() || AnyPlayerWithinRange(detectionRange))
         {
             if (IsFound())
             {
@@ -81,7 +78,7 @@ public abstract class EnemyBehavior : NetworkBehaviour
         }
     }
 
-    protected bool FindPlayerWithinRange(float range)
+    protected bool AnyPlayerWithinRange(float range)
     {
         int playerInRange = players.Where(p => (p.transform.position - transform.position).magnitude <= range).ToArray().Length;
         return playerInRange>0;
