@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
 {
+    public float playSafeTime = 1;
+
     private GameObject lastPlayerTargeted;
     private Vector3 lastPlayerPosition;
     private float timeBacking = 0;
@@ -52,7 +54,11 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
 
         target = FindPotentialPosition(player);
         enemyAction += RotateTowardTarget;
-        enemyAction += ShootTarget;
+        if (!VerifyAllyInShot())
+        {
+            enemyAction += ShootTarget;
+        }
+       
         //State Check
 
         if (IsLowOnHealth())
@@ -76,6 +82,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         {
             enemyAction += ShootTarget;
         }
+        timeBacking += Time.deltaTime;
 
         //State Check
         if (!IsLowOnHealth())
@@ -104,8 +111,32 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         return position;
     }
 
+    protected bool VerifyAllyInShot()
+    {
+        bool allyInShot = false;
+        RaycastHit hit;
+        Vector3 direction = (target - transform.position).normalized;
+        allyInShot |= Physics.Raycast(transform.position, direction, out hit);
+        if (allyInShot)
+        {
+            allyInShot &= hit.collider.tag == "Enemy";
+        }
+        return allyInShot;
+    }
+
     protected void StrafeAround(Vector3 position)
     {
         transform.position += transform.right * speed / 1.5f * Time.deltaTime;
+    }
+
+    protected void FindSafestEscapeRoute()
+    {
+        Vector3 playerPosition = FindClosestPlayer();
+        GameObject[] possiblePoints = GameObject.FindGameObjectsWithTag("Navigation");
+    }
+
+    protected void FindVisibleEscape(GameObject[] points)
+    {
+
     }
 }
