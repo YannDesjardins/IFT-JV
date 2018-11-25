@@ -1947,9 +1947,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed54ab1855d2de4291262737e1c9f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 1
-  Gravity: -9.81
-  DeadZone: 0
+  AxisSensitivity: 0.09
+  AxisGravity: 0.09
+  AxisDeadZone: 0.08999
 --- !u!4 &1469675877
 Transform:
   m_ObjectHideFlags: 0
