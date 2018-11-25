@@ -18,9 +18,10 @@ public class BehaviorPicker : MonoBehaviour {
         {
             BadRangedEnemyBehavior behavior = gameObject.AddComponent<BadRangedEnemyBehavior>();
             behavior.bulletPrefab = this.bulletPrefab;
+            gameObject.GetComponent<Health>().healthRegen = 5;
             behavior.shootRange = 10f;
-
-
+            behavior.shootRange = 15f;
+            behavior.rotationSpeed = 10f;
         }
         if (StaticGameStats.Difficulty == 2)
         {

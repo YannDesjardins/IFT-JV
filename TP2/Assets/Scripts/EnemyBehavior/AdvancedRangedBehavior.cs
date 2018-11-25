@@ -103,7 +103,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         if(player == lastPlayerTargeted)
         {
             Vector3 direction = (player.transform.position - lastPlayerPosition).normalized;
-            Vector3 estimatedPosition = player.transform.position + direction * 100 * Time.deltaTime;
+            Vector3 estimatedPosition = player.transform.position + direction * 300 * Time.deltaTime;
             position = estimatedPosition;
         }
         else
