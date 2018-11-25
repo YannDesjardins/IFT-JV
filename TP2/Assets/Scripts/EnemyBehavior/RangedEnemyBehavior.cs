@@ -32,11 +32,13 @@ public class RangedEnemyBehavior : EnemyBehavior
         if (lastShot > shootingSpeed)
         {
             lastShot = 0;
-            CmdFire();
+            if (isServer)
+            {
+                CmdFire();
+            }
         }
     }
 
-    [Command]
     void CmdFire()
     {
         for (int i = 0; i < bulletSpawn.Length; i++)

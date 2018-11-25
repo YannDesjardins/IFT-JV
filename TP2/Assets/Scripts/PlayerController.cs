@@ -18,9 +18,16 @@ public class PlayerController : NetworkBehaviour {
 			
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
 		var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f;
+        var xx = AxisEmulator.H * Time.deltaTime * 10.0f;
+        var zz = AxisEmulator.V * Time.deltaTime * 10.0f;
 
-		transform.Translate(x, 0, 0, Space.World);
-		transform.Translate(0, 0, z, Space.World);
+        Debug.Log("x " + x +"and " + Input.GetAxis("Horizontal"));
+        Debug.Log("z " + z + "and " + Input.GetAxis("Vertical"));
+        Debug.Log("zz " + zz +"and " + AxisEmulator.V);
+
+
+        transform.Translate(xx, 0, 0, Space.World);
+		transform.Translate(0, 0, zz, Space.World);
 
 		//Changer direction de tire avec raycast
 		//Source: https://www.youtube.com/watch?v=lkDGk3TjsIE
