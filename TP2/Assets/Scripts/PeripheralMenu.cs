@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PeripheralMenu : MonoBehaviour {
 
     public Slider AccuracySlider;
+    public Toggle UsingController;
 
     // Use this for initialization
     void Start () {
@@ -15,5 +16,11 @@ public class PeripheralMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         StaticGameStats.Accuracy = AccuracySlider.value;
+        
+    }
+
+    public void OnToggle(bool value)
+    {
+        StaticGameStats.UsingController = !StaticGameStats.UsingController;
     }
 }
