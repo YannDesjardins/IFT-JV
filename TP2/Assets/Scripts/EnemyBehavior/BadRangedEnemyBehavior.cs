@@ -9,7 +9,6 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
     protected override void ChasePlayer()
     {
         //State action
-        changeColor(Color.yellow);
         target = FindClosestPlayer();
         moveTarget = target;
 
