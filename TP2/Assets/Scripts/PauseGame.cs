@@ -17,7 +17,7 @@ public class PauseGame : NetworkBehaviour {
 	void Update () {
 		Time.timeScale = timeScale;
 
-		if (Input.GetKeyDown ("escape")) {
+		if (Input.GetKeyDown ("escape")|| Input.GetKeyDown(KeyCode.Joystick1Button9)) {
 
 			if (isServer && isClient) {
 				RpcPauseGame ();
