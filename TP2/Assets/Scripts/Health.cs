@@ -66,7 +66,7 @@ public class Health : NetworkBehaviour {
 	}
 	void OnChangeHealth (int health)
 	{
-		healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+		healthBar.sizeDelta = new Vector2(health * 1.5f, healthBar.sizeDelta.y);
 	}
 
     private void Regen()
