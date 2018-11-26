@@ -49,7 +49,7 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
         enemyMovement += RotateTowardTarget;
         enemyAction += ShootTarget;
         //State Check
-        if (!AnyPlayerWithinRange(shootRange))
+        if (!(FindPlayerVisible() && AnyPlayerWithinRange(shootRange)))
         {
             stateAction = ChasePlayer;
         }
