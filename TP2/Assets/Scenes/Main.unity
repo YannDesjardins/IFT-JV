@@ -2936,7 +2936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AccuracySlider: {fileID: 2044392105}
-  UsingController: {fileID: 0}
+  UsingController: {fileID: 404681918}
 --- !u!1 &767618237
 GameObject:
   m_ObjectHideFlags: 0

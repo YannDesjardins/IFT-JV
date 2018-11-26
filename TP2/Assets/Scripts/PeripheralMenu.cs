@@ -11,6 +11,7 @@ public class PeripheralMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         AccuracySlider.value = (float)StaticGameStats.Accuracy;
+        UsingController.isOn = StaticGameStats.UsingController;
     }
 	
 	// Update is called once per frame
