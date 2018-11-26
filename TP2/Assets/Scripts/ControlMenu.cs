@@ -30,6 +30,7 @@ public class ControlMenu : MonoBehaviour {
                 GameObject.Find(selectedKey).GetComponentInChildren<Text>().text = current.keyCode.ToString();
                 selectedKey = null;
             }
+            Debug.Log(current.type);
         }
     }
 

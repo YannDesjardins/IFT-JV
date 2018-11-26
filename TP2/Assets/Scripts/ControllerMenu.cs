@@ -12,6 +12,7 @@ public class ControllerMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         values = System.Enum.GetValues(typeof(KeyCode));
+        ActionButton.text = controls["ShootButton"].ToString();
     }
 	
 	// Update is called once per frame
@@ -29,14 +30,11 @@ public class ControllerMenu : MonoBehaviour {
                 {
                     print(System.Enum.GetName(typeof(KeyCode), code));
                     GameObject.Find(selectedKey).GetComponentInChildren<Text>().text = System.Enum.GetName(typeof(KeyCode), code);
-                    
+                    selectedKey = null;
+                    break;
                 }
             }
-            selectedKey = null;
         }
-        
-            Debug.Log(Input.GetAxis("HorizontalLeft"));
-        
     }
 
     private void OnGUI()

@@ -16,7 +16,10 @@ public static class StaticGameStats{
         {"ForwardButton", KeyCode.W},
         {"BackwardButton", KeyCode.S },
         {"LeftButton", KeyCode.A },
-        {"RightButton", KeyCode.D }
+        {"RightButton", KeyCode.D },
+        {"ShootButton", KeyCode.Joystick1Button7 },
+
+
     };
 
     public static int EnemyMax

@@ -21,8 +21,12 @@ public class PlayerController : NetworkBehaviour {
         if (StaticGameStats.UsingController)
         {
             xx = Input.GetAxis("HorizontalLeft") * Time.deltaTime * 10.0f;
-            zz = Input.GetAxis("VerticalLeft") * Time.deltaTime * 10.0f*(-1);
-            transform.rotation = Quaternion.LookRotation(new Vector3(xx, 0, zz));
+            zz = Input.GetAxis("VerticalLeft")  * Time.deltaTime * 10.0f * (-1);
+
+            float xxx = Mathf.Clamp(Input.GetAxis("HorizontalRight") * StaticGameStats.Accuracy * 10.0f, -1, 1) * Time.deltaTime * 10.0f;
+            float zzz = Mathf.Clamp(Input.GetAxis("VerticalRight") * StaticGameStats.Accuracy * 10.0f, -1, 1) * Time.deltaTime * 10.0f * (-1);
+            if(new Vector3(xxx, 0, zzz).magnitude >0.001)
+                transform.rotation = Quaternion.LookRotation(new Vector3(xxx, 0, zzz));
         }
         else
         {
@@ -45,7 +49,7 @@ public class PlayerController : NetworkBehaviour {
         transform.Translate(xx, 0, 0, Space.World);
 		transform.Translate(0, 0, zz, Space.World);
 
-        if (Input.GetKey(KeyCode.Mouse0)&&Time.time>timeOfFire)
+        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Joystick1Button7)) && Time.time>timeOfFire)
 		{
 			CmdFire();
 			timeOfFire=Time.time+rateOfFire;
