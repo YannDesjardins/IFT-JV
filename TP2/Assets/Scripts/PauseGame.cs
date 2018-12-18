@@ -1,70 +1,65 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class PauseGame : NetworkBehaviour {
+
+public class PauseGame : MonoBehaviour {
 	
-	[SyncVar]
-	private int timeScale = 1;
 
-	[SyncVar]
+	private int timeScale = 1;
 	private bool pause = false;
 
-
+	public GameObject menuBackground;
 	public GameObject pauseMenu;
+	public GameObject gobackButton;
+	private Animator animatorBackground;
+	private Animator animatorButton;
+
+	void Start () {
+		animatorBackground = menuBackground.GetComponent<Animator> ();
+		animatorButton = gobackButton.GetComponent<Animator> ();
+	}
 
 	void Update () {
 		Time.timeScale = timeScale;
 
 		if (Input.GetKeyDown ("escape")|| Input.GetKeyDown(KeyCode.Joystick1Button9)) {
 
-			if (isServer && isClient) {
-				RpcPauseGame ();
-			} else if (isClient) {
-				OpenMenu ();
-			} else if (isServer) {
-				RpcPauseGame ();
-				DedicatedServerPauseGame ();
+			if (pause == false) {
+				pause = true;
+				pauseMenu.SetActive (true);
+				menuAnimation ();
+				buttonAnimation ();
+				timeScale = 0;
 			}
-
+			else if (pause == true) {
+				pause = false;
+				menuAnimation ();
+				buttonAnimation ();
+				timeScale = 1;
+				Invoke ("closeMenu", 0.4f);
+			}    
+				
 		}
 	}
-	[ClientRpc]
-	private void RpcPauseGame (){
-		if (pause == false) {
-			pause = true;
-			timeScale = 0;
-			pauseMenu.SetActive (true);
-		}
-		else if (pause == true) {
-			pause = false;
-			timeScale = 1;
-			pauseMenu.SetActive (false);
-		}    
+	private void buttonAnimation (){
+		if (animatorButton != null) {
+			bool isScaled = animatorButton.GetBool ("scaleButton");
 
-	}
-
-	private void DedicatedServerPauseGame (){
-		if (pause == false) {
-			pause = true;
-			timeScale = 0;
-			pauseMenu.SetActive (true);
-		}
-		else if (pause == true) {
-			pause = false;
-			timeScale = 1;
-			pauseMenu.SetActive (false);
-		}    
-
-	}
-
-	private void OpenMenu (){
-		if (pauseMenu.activeSelf){
-			pauseMenu.SetActive (false);
-		}
-		else {
-			pauseMenu.SetActive (true);
+			animatorButton.SetBool ("scaleButton", !isScaled);
 		}
 	}
+
+	private void menuAnimation (){
+		if (animatorBackground != null) {
+			bool isOpen = animatorBackground.GetBool ("open");
+
+			animatorBackground.SetBool ("open", !isOpen);
+		}
+	}
+
+	private void closeMenu (){
+		pauseMenu.SetActive (false);
+	}
+
 }
