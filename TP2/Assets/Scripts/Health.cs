@@ -7,26 +7,26 @@ using UnityEngine.Networking;
 public class Health : NetworkBehaviour {
 
 	public const int maxHealth = 100;
-    public int healthRegen = 0;
-    public float invincibilityTime;
-    public bool destroyOnDeath;
+	public int healthRegen = 0;
+	public float invincibilityTime;
+	public bool destroyOnDeath;
 
 	[SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
 
 	public RectTransform healthBar;
 
-    private float timeLastHit = 0;
-    private float regenTime = 0;
+	private float timeLastHit = 0;
+	private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
 
 	public GameObject playerModel;
 	private Animator animatorModel;
-	private Rigidbody rigidbodyPlayer;
 
 	void Start ()
 	{
 		animatorModel = playerModel.GetComponent<Animator> ();
+
 
 		if (isLocalPlayer)
 		{
@@ -34,76 +34,88 @@ public class Health : NetworkBehaviour {
 		}
 	}
 
-    private void Update()
-    {
-        timeLastHit += Time.deltaTime;
-        Regen();
-    }
+	private void Update()
+	{
+		timeLastHit += Time.deltaTime;
+		Regen();
+	}
 
-    public void TakeDamage(int amount)
+	public void TakeDamage(int amount)
 	{
 		if (!isServer)
 		{
 			return;
 		}
 
-        if (timeLastHit > invincibilityTime)
-        {
-            timeLastHit = 0;
-            currentHealth -= amount;
-            if (currentHealth <= 0)
-            {
-                if (destroyOnDeath)
-                {
+		if (timeLastHit > invincibilityTime)
+		{
+			timeLastHit = 0;
+			currentHealth -= amount;
+			if (currentHealth <= 0 && currentHealth >= -1000)
+			{
+				if (destroyOnDeath)
+				{
 
-                    StaticGameStats.EnemyCount--;
-                    Destroy(gameObject);
+					StaticGameStats.EnemyCount--;
+					Destroy(gameObject);
+
+				}
+				else
+				{
+					currentHealth = -1001;
+
+					bool isDead = animatorModel.GetBool ("dead");
+
+					animatorModel.SetBool ("dead", true);
+
+					gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+					gameObject.GetComponent<PlayerController>().enabled = false;
+					Invoke ("RpcRespawn", 2.0f);
 
 
-                }
-                else
-                {
-
-					currentHealth = maxHealth;
-
-					RpcRespawn();
-
-					bool isRunning = animatorModel.GetBool ("running");
-
-					animatorModel.SetBool ("running", false);
-                   
-                }
-            }
-        }	
+				}
+			}
+		}	
 	}
 	void OnChangeHealth (int health)
 	{
 		healthBar.sizeDelta = new Vector2(health * 1.5f, healthBar.sizeDelta.y);
 	}
 
-    private void Regen()
-    {
-        regenTime += Time.deltaTime;
-        if (regenTime > 1)
-        {
-            regenTime = 0;
-            currentHealth += healthRegen;
-            if(currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
-        }
-    }
+	private void Regen()
+	{
+		regenTime += Time.deltaTime;
+		if (regenTime > 1)
+		{
+			regenTime = 0;
+			currentHealth += healthRegen;
+			if(currentHealth > maxHealth)
+			{
+				currentHealth = maxHealth;
+			}
+		}
+	}
 
 	[ClientRpc]
 	void RpcRespawn()
 	{
 		Vector3 spawnPoint = Vector3.zero;
 
+		currentHealth = maxHealth;
+
+		animatorModel.SetBool ("dead", false);
+
+
 		if (isLocalPlayer)
 		{
 			spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
 			transform.position = spawnPoint;
+
+			gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+			gameObject.GetComponent<PlayerController>().enabled = true;
+
 		}
 	}
 }

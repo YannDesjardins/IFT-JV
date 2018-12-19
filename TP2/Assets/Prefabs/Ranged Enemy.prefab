@@ -643,6 +643,7 @@ MonoBehaviour:
   destroyOnDeath: 1
   currentHealth: 100
   healthBar: {fileID: 224385460646920180}
+  playerModel: {fileID: 1235350586273720}
 --- !u!114 &114524745385920698
 MonoBehaviour:
   m_ObjectHideFlags: 1
