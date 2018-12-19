@@ -20,8 +20,14 @@ public class Health : NetworkBehaviour {
     private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
 
+	public GameObject playerModel;
+	private Animator animatorModel;
+	private Rigidbody rigidbodyPlayer;
+
 	void Start ()
 	{
+		animatorModel = playerModel.GetComponent<Animator> ();
+
 		if (isLocalPlayer)
 		{
 			spawnPoints = FindObjectsOfType<NetworkStartPosition>();
@@ -57,9 +63,15 @@ public class Health : NetworkBehaviour {
                 }
                 else
                 {
-                    currentHealth = maxHealth;
 
-                    RpcRespawn();
+					currentHealth = maxHealth;
+
+					RpcRespawn();
+
+					bool isRunning = animatorModel.GetBool ("running");
+
+					animatorModel.SetBool ("running", false);
+                   
                 }
             }
         }	

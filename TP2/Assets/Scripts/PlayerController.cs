@@ -9,12 +9,37 @@ public class PlayerController : NetworkBehaviour {
 	public Transform bulletSpawn;
 	public float rateOfFire;
 	private float timeOfFire;
+	public GameObject playerModel;
+	private Animator animatorModel;
+
+	private Vector3 currentPosition;
+	private Vector3 lastPosition;
+
+	void Start() {
+		animatorModel = playerModel.GetComponent<Animator> ();
+		currentPosition = transform.position;
+		lastPosition = currentPosition;
+	}
 
 	void FixedUpdate () {
-		if (!isLocalPlayer)
-		{
-			return;
+
+		currentPosition = transform.position;
+
+		if (lastPosition == currentPosition) {
+			bool isRunning = animatorModel.GetBool ("running");
+
+			animatorModel.SetBool ("running", false);
+		} else {
+			bool isRunning = animatorModel.GetBool ("running");
+
+			animatorModel.SetBool ("running", true);
 		}
+
+		lastPosition = currentPosition;
+
+		Debug.Log ("current: " + currentPosition);
+		Debug.Log ("last: " + lastPosition);
+
 
         float xx;
         float zz;
