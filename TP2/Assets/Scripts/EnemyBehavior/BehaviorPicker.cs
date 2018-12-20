@@ -6,6 +6,7 @@ using UnityEngine;
 public class BehaviorPicker : MonoBehaviour {
 
     public GameObject bulletPrefab;
+    public AudioClip bulletSound;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,7 @@ public class BehaviorPicker : MonoBehaviour {
             behavior.shootRange = 10f;
             behavior.shootRange = 15f;
             behavior.rotationSpeed = 10f;
+            behavior.bulletSound = bulletSound;
         }
         if (StaticGameStats.Difficulty == 2)
         {
@@ -30,6 +32,7 @@ public class BehaviorPicker : MonoBehaviour {
             behavior.bulletPrefab = this.bulletPrefab;
             behavior.shootRange = 15f;
             behavior.rotationSpeed = 10f;
+            behavior.bulletSound = bulletSound;
         }
     }
 }

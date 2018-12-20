@@ -10,11 +10,15 @@ public class RangedEnemyBehavior : EnemyBehavior
     public float shootingSpeed = 0.5f;
     public Transform[] bulletSpawn;
     public GameObject bulletPrefab;
+    public AudioClip bulletSound;
+
+    private AudioSource source;
 
     private float lastShot = 0;
 
     protected new void Start()
     {
+        source = GetComponent<AudioSource>();
         base.Start();
         bulletSpawn = new Transform[2];
         bulletSpawn[0] = gameObject.GetComponentInChildren<Transform>().Find("BulletSpawn1");
@@ -49,6 +53,7 @@ public class RangedEnemyBehavior : EnemyBehavior
             bulletSpawn[i].position,
             bulletSpawn[i].rotation);
 
+            source.PlayOneShot(bulletSound, 0.5f);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
 
             NetworkServer.Spawn(bullet);

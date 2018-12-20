@@ -8,6 +8,8 @@ public class PlayerController : NetworkBehaviour {
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
 	public float rateOfFire;
+    public AudioClip gunSound;
+
 	private float timeOfFire;
 	public GameObject playerModel;
 	private Animator animatorModel;
@@ -15,7 +17,10 @@ public class PlayerController : NetworkBehaviour {
 	private Vector3 currentPosition;
 	private Vector3 lastPosition;
 
+    private AudioSource source;
+
 	void Start() {
+        source = GetComponent<AudioSource>();
 		animatorModel = playerModel.GetComponent<Animator> ();
 		currentPosition = transform.position;
 		lastPosition = currentPosition;
@@ -90,6 +95,8 @@ public class PlayerController : NetworkBehaviour {
 
 		// Add velocity to the bullet
 		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
+
+        source.PlayOneShot(gunSound,0.5f);
 
 		// Spawn the bullet on the Clients
 		NetworkServer.Spawn(bullet);
