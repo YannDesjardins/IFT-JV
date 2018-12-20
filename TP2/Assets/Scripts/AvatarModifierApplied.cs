@@ -18,9 +18,21 @@ public class AvatarModifierApplied : MonoBehaviour {
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
 		avatarSantaHat.active = StaticGameStats.AvatarSantaHat;
 
-		color1.SetColor("_Color", Color.green);
-		color2.SetColor("_Color", Color.green);
-		color3.SetColor("_Color", Color.green);
+		ChangeColor (color1, StaticGameStats.AvatarColor1);
+		ChangeColor (color2, StaticGameStats.AvatarColor2);
+		ChangeColor (color3, StaticGameStats.AvatarColor3);
 
+	}
+
+	void ChangeColor(Material color, int newcolor){
+		if (newcolor == 0){
+			color.SetColor("_Color", Color.white);
+		}
+		else if (newcolor == 1){
+			color.SetColor("_Color", Color.black);
+		}
+		else if (newcolor == 2){
+			color.SetColor("_Color", Color.green);
+		}
 	}
 }

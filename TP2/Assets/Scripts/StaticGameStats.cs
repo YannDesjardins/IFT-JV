@@ -6,9 +6,9 @@ public static class StaticGameStats{
 
 	private static Vector3 avatarHeadScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	private static Vector3 avatarBodyScale = new Vector3 (1.0f, 1.0f, 1.0f);
-	private static int avatarColor1 = 0;
+	private static int avatarColor1 = 2;
 	private static int avatarColor2 = 0;
-	private static int avatarColor3 = 0;
+	private static int avatarColor3 = 1;
 	private static bool avatarSantaHat = false;
 
 	private static int enemyMax = 10;
