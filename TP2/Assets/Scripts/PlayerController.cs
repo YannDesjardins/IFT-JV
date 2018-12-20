@@ -37,8 +37,6 @@ public class PlayerController : NetworkBehaviour {
 
 		lastPosition = currentPosition;
 
-		Debug.Log ("current: " + currentPosition);
-		Debug.Log ("last: " + lastPosition);
 
 
         float xx;

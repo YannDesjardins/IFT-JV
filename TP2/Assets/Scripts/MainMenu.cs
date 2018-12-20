@@ -37,4 +37,8 @@ public class MainMenu : MonoBehaviour {
 	public void QuitGame (){
 		Application.Quit ();
 	}
+
+	public void CustomAvatarScene(){
+		SceneManager.LoadSceneAsync("CustomAvatar");
+	}
 }

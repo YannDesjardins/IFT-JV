@@ -166,8 +166,6 @@ ModelImporter:
     2300018: Shoulder.L 1
     2300020: Shoulder.R 1
     2300022: Torso
-    2300024: Hand.L
-    2300026: Hand.R
     3300000: Arm.L
     3300002: Arm.R
     3300004: Foot.L 1
@@ -180,8 +178,6 @@ ModelImporter:
     3300018: Shoulder.L 1
     3300020: Shoulder.R 1
     3300022: Torso
-    3300024: Hand.L
-    3300026: Hand.R
     4300000: Foot.L
     4300002: Torso
     4300004: Head
@@ -211,7 +207,6 @@ ModelImporter:
     7400024: RobotArmature|Robot_Wave
     7400026: RobotArmature|Robot_Yes
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Hand.L
     13700002: Hand.R
     2186277476908879412: ImportLogs
@@ -235,7 +230,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -681,7 +676,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

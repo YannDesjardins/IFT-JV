@@ -976,6 +976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4749919109867082}
   - component: {fileID: 95319739285694298}
+  - component: {fileID: 114759049785054662}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -3159,6 +3160,22 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4576505771718584}
   rateOfFire: 0.1
   playerModel: {fileID: 1809367241562386}
+--- !u!114 &114759049785054662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1809367241562386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba7fcd4b492eda46a7bc01d7442952f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatarBody: {fileID: 1706852932137454}
+  avatarHead: {fileID: 1180491398869208}
+  color1: {fileID: 2100000, guid: 935348773f29e6a4585a2c9b1b73a613, type: 2}
+  color2: {fileID: 2100000, guid: 5a7a865175378df4c86cc7b9e9a51be7, type: 2}
+  color3: {fileID: 2100000, guid: e5fdcc86dc9fa5c4fbc2750093b5602d, type: 2}
 --- !u!136 &136181987075609210
 CapsuleCollider:
   m_ObjectHideFlags: 1
