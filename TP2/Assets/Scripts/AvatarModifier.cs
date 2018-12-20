@@ -11,10 +11,11 @@ public class AvatarModifier : MonoBehaviour {
 	public Material color1;
 	public Material color2;
 	public Material color3;
+	public GameObject avatarSantaHat;
 
 	public Slider headSlider;
 	public Slider bodySlider;
-	public Button applyChange;
+	public Toggle santaHatToggle;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +24,9 @@ public class AvatarModifier : MonoBehaviour {
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
 		bodySlider.value = StaticGameStats.AvatarBodyScale.x;
 		headSlider.value = StaticGameStats.AvatarHeadScale.x;
-
+		santaHatToggle.isOn = StaticGameStats.AvatarSantaHat;
+		Debug.Log ("toggle: " + santaHatToggle.isOn + " data: " + StaticGameStats.AvatarSantaHat);
+			
 		color1.SetColor("_Color", Color.green);
 		color2.SetColor("_Color", Color.green);
 		color3.SetColor("_Color", Color.green);
@@ -36,11 +39,16 @@ public class AvatarModifier : MonoBehaviour {
 		StaticGameStats.AvatarHeadScale = new Vector3 (headSlider.value, headSlider.value, headSlider.value);
 		avatarBody.transform.localScale = StaticGameStats.AvatarBodyScale;
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
+		avatarSantaHat.active = StaticGameStats.AvatarSantaHat;
 
 	}
 
 	public void GoBack (){
 		SceneManager.LoadScene ("main");
+	}
+
+	public void AddSantaHat (){
+		StaticGameStats.AvatarSantaHat = santaHatToggle.isOn;
 	}
 
 }

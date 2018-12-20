@@ -10,11 +10,13 @@ public class AvatarModifierApplied : MonoBehaviour {
 	public Material color2;
 	public Material color3;
 
+	public GameObject avatarSantaHat;
+
 	void Start () {
 
 		avatarBody.transform.localScale = StaticGameStats.AvatarBodyScale;
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
-
+		avatarSantaHat.active = StaticGameStats.AvatarSantaHat;
 
 		color1.SetColor("_Color", Color.green);
 		color2.SetColor("_Color", Color.green);

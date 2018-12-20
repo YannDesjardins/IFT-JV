@@ -9,6 +9,7 @@ public static class StaticGameStats{
 	private static int avatarColor1 = 0;
 	private static int avatarColor2 = 0;
 	private static int avatarColor3 = 0;
+	private static bool avatarSantaHat = false;
 
 	private static int enemyMax = 10;
 	private static int enemyCount = 10;
@@ -27,6 +28,18 @@ public static class StaticGameStats{
 
 
     };
+
+	public static bool AvatarSantaHat
+	{
+		get 
+		{
+			return avatarSantaHat;
+		}
+		set 
+		{
+			avatarSantaHat = value;
+		}
+	}
 
 	public static Vector3 AvatarBodyScale
 	{
