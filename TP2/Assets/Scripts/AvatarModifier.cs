@@ -21,6 +21,8 @@ public class AvatarModifier : MonoBehaviour {
 
 		avatarBody.transform.localScale = StaticGameStats.AvatarBodyScale;
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
+		bodySlider.value = StaticGameStats.AvatarBodyScale.x;
+		headSlider.value = StaticGameStats.AvatarHeadScale.x;
 
 		color1.SetColor("_Color", Color.green);
 		color2.SetColor("_Color", Color.green);
