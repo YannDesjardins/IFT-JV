@@ -535,7 +535,7 @@ MonoBehaviour:
   invincibilityTime: 0
   destroyOnDeath: 0
   deathSound: {fileID: 8300000, guid: 4b3a6b923a857d545a20a778b65bed07, type: 3}
-  remoteSound: {fileID: 6835950168287325257, guid: 8f1594c379008e048b39fcf195b711c3,
+  remoteSound: {fileID: 5908992140515424935, guid: 8f1594c379008e048b39fcf195b711c3,
     type: 3}
   currentHealth: 100
   healthBar: {fileID: 224133388230511216}

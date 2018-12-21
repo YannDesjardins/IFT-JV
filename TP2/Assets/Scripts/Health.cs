@@ -11,7 +11,7 @@ public class Health : NetworkBehaviour {
 	public float invincibilityTime;
 	public bool destroyOnDeath;
     public AudioClip deathSound;
-    public RemoteSound remoteSound;
+    public GameObject remoteSound;
 
     [SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
@@ -54,17 +54,15 @@ public class Health : NetworkBehaviour {
 			currentHealth -= amount;
 			if (currentHealth <= 0 && currentHealth >= -1000)
 			{
-                RemoteSound sound = Instantiate(remoteSound, transform);
-                Debug.Log("Position MORT:" + transform.position);
-                Destroy(sound, deathSound.length);
+                GameObject sound = Instantiate(remoteSound, transform.position,transform.rotation);
+                Destroy(sound,deathSound.length);
 
-                //AudioSource.PlayClipAtPoint(deathSound,transform.position, 0.5f);
 				if (destroyOnDeath)
 				{
 
 					StaticGameStats.EnemyCount--;
                     
-					//Destroy(gameObject);
+					Destroy(gameObject);
 
 				}
 				else
