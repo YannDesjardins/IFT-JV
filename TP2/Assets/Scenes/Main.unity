@@ -793,8 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  MixerType: FoleyMixer
+  mixerType: 
 --- !u!1 &141950017
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,6 +2954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416137108}
   - component: {fileID: 416137109}
+  - component: {fileID: 416137110}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -2980,7 +2982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 31}
+  m_AnchoredPosition: {x: 19, y: 31}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &416137109
@@ -2997,6 +2999,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 204490385}
   loadingSlider: {fileID: 1468971070}
+--- !u!95 &416137110
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416137107}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85dc4243d61de1c41a1e44ae5b1b2390, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &446845885
 GameObject:
   m_ObjectHideFlags: 0
@@ -4694,8 +4715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  MixerType: MasterMixer
+  mixerType: 
 --- !u!1 &737856204
 GameObject:
   m_ObjectHideFlags: 0
@@ -7953,8 +7975,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  MixerType: MusicMixer
+  mixerType: 
 --- !u!1 &1487836876
 GameObject:
   m_ObjectHideFlags: 0
@@ -8067,8 +8090,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  MixerType: SoundMixer
+  mixerType: 
 --- !u!1 &1516930478
 GameObject:
   m_ObjectHideFlags: 0
