@@ -793,9 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 80192357}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  mixerType: 
+  mixerType: FoleyMixer
 --- !u!1 &141950017
 GameObject:
   m_ObjectHideFlags: 0
@@ -4715,9 +4715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 718893249}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  mixerType: 
+  mixerType: MasterMixer
 --- !u!1 &737856204
 GameObject:
   m_ObjectHideFlags: 0
@@ -7975,9 +7975,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 1478165391}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  mixerType: 
+  mixerType: MusicMixer
 --- !u!1 &1487836876
 GameObject:
   m_ObjectHideFlags: 0
@@ -8090,9 +8090,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adf883aa7b61c546a53203ef90181b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 1487836878}
   mixer: {fileID: 24100000, guid: 4e950ad82c6d3fb4e800b11725975e88, type: 2}
-  mixerType: 
+  mixerType: SoundMixer
 --- !u!1 &1516930478
 GameObject:
   m_ObjectHideFlags: 0
