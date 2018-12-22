@@ -126,6 +126,7 @@ public class Health : NetworkBehaviour {
 
 		animatorModel.SetBool ("dead", false);
 
+		playFireOnce = false;
 
 		if (isLocalPlayer)
 		{
