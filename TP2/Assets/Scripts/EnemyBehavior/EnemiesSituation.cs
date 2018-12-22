@@ -38,7 +38,6 @@ public class EnemiesSituation : MonoBehaviour
         if (enemiesAlerted == 0)
         {
             combatMusicSource.Play();
-            casualMusicSource.Stop();
             activeSnapshot = combatMusicSnapshot;
             combatMusicSnapshot.TransitionTo(0f);
         }
@@ -50,7 +49,6 @@ public class EnemiesSituation : MonoBehaviour
         if (enemiesAlerted == 1)
         {
             casualMusicSource.Play();
-            combatMusicSource.Stop();
             activeSnapshot = casualMusicSnapshot;
             casualMusicSnapshot.TransitionTo(0f);
             enemiesAlerted = 0;
