@@ -10,8 +10,22 @@ public class EnemiesSituation : MonoBehaviour
     public AudioMixerSnapshot casualMusicSnapshot;
     public GameObject musicPlayer;
 
+    private AudioMixerSnapshot activeSnapshot;
     private AudioSource combatMusicSource;
     private AudioSource casualMusicSource;
+
+    public AudioMixerSnapshot ActiveSnapshot
+    {
+        get
+        {
+            return activeSnapshot;
+        }
+
+        set
+        {
+            activeSnapshot = value;
+        }
+    }
 
     private void Start()
     {
@@ -25,6 +39,7 @@ public class EnemiesSituation : MonoBehaviour
         {
             combatMusicSource.Play();
             casualMusicSource.Stop();
+            activeSnapshot = combatMusicSnapshot;
             combatMusicSnapshot.TransitionTo(0f);
         }
         enemiesAlerted++;
@@ -36,6 +51,7 @@ public class EnemiesSituation : MonoBehaviour
         {
             casualMusicSource.Play();
             combatMusicSource.Stop();
+            activeSnapshot = casualMusicSnapshot;
             casualMusicSnapshot.TransitionTo(0f);
             enemiesAlerted = 0;
         }
