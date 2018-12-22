@@ -50,7 +50,8 @@ public class PauseGame : MonoBehaviour {
 				timeScale = 0;
 			}
 			else if (pause == true) {
-				pause = false;
+                soundAudioSource.PlayOneShot(menuEnterSound);
+                pause = false;
 				menuAnimation ();
 				buttonAnimation ();
 				timeScale = 1;
@@ -76,7 +77,6 @@ public class PauseGame : MonoBehaviour {
 	}
 
 	private void closeMenu (){
-        soundAudioSource.PlayOneShot(menuEnterSound);
         enemiesSituation.ActiveSnapshot.TransitionTo(0.5f); 
         pauseMenu.SetActive (false);
     }
