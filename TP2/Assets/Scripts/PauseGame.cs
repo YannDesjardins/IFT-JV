@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 public class PauseGame : MonoBehaviour {
@@ -9,14 +10,20 @@ public class PauseGame : MonoBehaviour {
 	private int timeScale = 1;
 	private bool pause = false;
 
+    public GameObject musicPlayer;
+    public AudioMixerSnapshot casualSnapshot;
+    public AudioMixerSnapshot pauseMenuSnapshot;
 	public GameObject menuBackground;
 	public GameObject pauseMenu;
 	public GameObject gobackButton;
-	private Animator animatorBackground;
+    private AudioSource pauseMusicSource;
+    private Animator animatorBackground;
 	private Animator animatorButton;
 
 	void Start () {
-		animatorBackground = menuBackground.GetComponent<Animator> ();
+
+        pauseMusicSource = musicPlayer.GetComponents<AudioSource>()[2];
+        animatorBackground = menuBackground.GetComponent<Animator> ();
 		animatorButton = gobackButton.GetComponent<Animator> ();
 	}
 
@@ -27,8 +34,10 @@ public class PauseGame : MonoBehaviour {
 
 			if (pause == false) {
 				pause = true;
+                pauseMusicSource.Play();
 				pauseMenu.SetActive (true);
-				menuAnimation ();
+                pauseMenuSnapshot.TransitionTo(0f);
+                menuAnimation ();
 				buttonAnimation ();
 				timeScale = 0;
 			}
@@ -59,7 +68,10 @@ public class PauseGame : MonoBehaviour {
 	}
 
 	private void closeMenu (){
-		pauseMenu.SetActive (false);
-	}
+        casualSnapshot.TransitionTo(0f);
+        pauseMenu.SetActive (false);
+        pauseMusicSource.Stop();
+
+    }
 
 }

@@ -30,10 +30,12 @@ public abstract class EnemyBehavior : NetworkBehaviour
     protected List<GameObject> playersVisible = new List<GameObject>();
     protected Vector3 target;
     protected Vector3 moveTarget;
+    protected EnemiesSituation enemiesSituation;
 
     // Use this for initialization
     protected void Start()
     {
+        enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
         health = GetComponent<Health>();
         stateAction = Patrol;
 
@@ -69,6 +71,7 @@ public abstract class EnemyBehavior : NetworkBehaviour
             if (IsFound())
             {
                 patrolPath.StopPatrol();
+                enemiesSituation.IncreaseAlertedEnemies();
                 stateAction = ChasePlayer;
             }
         }

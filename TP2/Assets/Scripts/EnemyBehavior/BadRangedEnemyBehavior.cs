@@ -31,6 +31,7 @@ public class BadRangedEnemyBehavior : RangedEnemyBehavior
         {
             if (IsHidden())
             {
+                enemiesSituation.DecreaseAlertedEnemies();
                 stateAction = Patrol;
             }
         }

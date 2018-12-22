@@ -21,6 +21,7 @@ public class Health : NetworkBehaviour {
 	private float timeLastHit = 0;
 	private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
+    private EnemiesSituation enemiesSituation;
 
 	private bool playFireOnce = false;
 	public GameObject fireFX;
@@ -30,7 +31,8 @@ public class Health : NetworkBehaviour {
 
 	void Start ()
 	{
-		animatorModel = playerModel.GetComponent<Animator> ();
+        enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
+        animatorModel = playerModel.GetComponent<Animator> ();
 
 		if (isLocalPlayer)
 		{
@@ -62,7 +64,7 @@ public class Health : NetworkBehaviour {
 
 				if (destroyOnDeath)
 				{
-
+                    enemiesSituation.DecreaseAlertedEnemies();
 					StaticGameStats.EnemyCount--;
                     
 					if (playFireOnce == false) {

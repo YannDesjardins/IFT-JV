@@ -20,7 +20,7 @@ public class GameController : NetworkBehaviour {
 	bool playFireworksOnce = false;
 
 	void FixedUpdate () {
-		
+
 		if (isServer) {
 			syncEnemyCount = StaticGameStats.EnemyCount;
 		}

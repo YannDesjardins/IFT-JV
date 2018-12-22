@@ -40,6 +40,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         {
             if (IsHidden())
             {
+                enemiesSituation.DecreaseAlertedEnemies();
                 stateAction = Patrol;
             }
         }
@@ -92,6 +93,7 @@ public class AdvancedRangedEnemyBehavior : RangedEnemyBehavior
         //State Check
         if (!IsLowOnHealth())
         {
+            enemiesSituation.DecreaseAlertedEnemies();
             stateAction = Patrol;
             timeBacking = 0;
         }
