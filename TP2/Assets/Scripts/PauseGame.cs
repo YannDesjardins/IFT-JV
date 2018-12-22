@@ -16,6 +16,9 @@ public class PauseGame : MonoBehaviour {
 	public GameObject menuBackground;
 	public GameObject pauseMenu;
 	public GameObject gobackButton;
+    public AudioClip menuEnterSound;
+    public AudioClip menuExitSound;
+    private AudioSource soundAudioSource;
     private AudioSource pauseMusicSource;
     private Animator animatorBackground;
 	private Animator animatorButton;
@@ -23,6 +26,7 @@ public class PauseGame : MonoBehaviour {
 
 	void Start () {
         enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
+        soundAudioSource = GetComponent<AudioSource>();
         pauseMusicSource = musicPlayer.GetComponents<AudioSource>()[2];
         animatorBackground = menuBackground.GetComponent<Animator> ();
 		animatorButton = gobackButton.GetComponent<Animator> ();
@@ -37,7 +41,10 @@ public class PauseGame : MonoBehaviour {
 				pause = true;
                 pauseMusicSource.Play();
 				pauseMenu.SetActive (true);
+
+                soundAudioSource.PlayOneShot(menuEnterSound);
                 pauseMenuSnapshot.TransitionTo(0f);
+
                 menuAnimation ();
 				buttonAnimation ();
 				timeScale = 0;
@@ -69,10 +76,9 @@ public class PauseGame : MonoBehaviour {
 	}
 
 	private void closeMenu (){
-        enemiesSituation.ActiveSnapshot.TransitionTo(0f);
+        soundAudioSource.PlayOneShot(menuEnterSound);
+        enemiesSituation.ActiveSnapshot.TransitionTo(0.5f); 
         pauseMenu.SetActive (false);
-        pauseMusicSource.Stop();
-
     }
 
 }
