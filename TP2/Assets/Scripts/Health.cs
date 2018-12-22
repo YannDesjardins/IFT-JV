@@ -66,11 +66,7 @@ public class Health : NetworkBehaviour {
 				{
                     enemiesSituation.DecreaseAlertedEnemies();
 					StaticGameStats.EnemyCount--;
-                    
-					if (playFireOnce == false) {
-						Instantiate (fireFX, transform.position, Quaternion.identity);
-						playFireOnce = true;
-					}
+					Instantiate (fireFX, transform.position, Quaternion.identity);
 
 					Destroy(gameObject);
 
@@ -79,10 +75,8 @@ public class Health : NetworkBehaviour {
 				{
 					currentHealth = -1001;
 
-					if (playFireOnce == false) {
-						Instantiate (fireFX, transform.position, Quaternion.identity);
-						playFireOnce = true;
-					}
+                    Instantiate (fireFX, transform.position, Quaternion.identity);
+					playFireOnce = true;
 
 					bool isDead = animatorModel.GetBool ("dead");
 
