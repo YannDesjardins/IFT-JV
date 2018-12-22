@@ -21,24 +21,19 @@ public class EnemiesSituation : MonoBehaviour
 
     public void IncreaseAlertedEnemies()
     {
-        Debug.Log("INCREASE");
         if (enemiesAlerted == 0)
         {
-            Debug.Log("MUSIQUE COMBAT");
             combatMusicSource.Play();
             casualMusicSource.Stop();
             combatMusicSnapshot.TransitionTo(0f);
         }
         enemiesAlerted++;
-        Debug.Log("NOW:" + enemiesAlerted);
     }
 
     public void DecreaseAlertedEnemies()
     {
-        Debug.Log("DECREASE");
         if (enemiesAlerted == 1)
         {
-            Debug.Log("MUSIQUE CASUAL");
             casualMusicSource.Play();
             combatMusicSource.Stop();
             casualMusicSnapshot.TransitionTo(0f);
@@ -48,6 +43,5 @@ public class EnemiesSituation : MonoBehaviour
         {
             enemiesAlerted--;
         }
-        Debug.Log("NOW:"+enemiesAlerted);
     }
 }
