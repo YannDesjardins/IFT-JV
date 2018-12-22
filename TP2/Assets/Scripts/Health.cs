@@ -23,7 +23,6 @@ public class Health : NetworkBehaviour {
 	private NetworkStartPosition[] spawnPoints;
     private EnemiesSituation enemiesSituation;
 
-	private bool playFireOnce = false;
 	public GameObject fireFX;
 
 	public GameObject playerModel;
@@ -76,7 +75,6 @@ public class Health : NetworkBehaviour {
 					currentHealth = -1001;
 
                     Instantiate (fireFX, transform.position, Quaternion.identity);
-					playFireOnce = true;
 
 					bool isDead = animatorModel.GetBool ("dead");
 
@@ -119,8 +117,6 @@ public class Health : NetworkBehaviour {
 		currentHealth = maxHealth;
 
 		animatorModel.SetBool ("dead", false);
-
-		playFireOnce = false;
 
 		if (isLocalPlayer)
 		{
