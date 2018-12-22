@@ -22,6 +22,9 @@ public class Health : NetworkBehaviour {
 	private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
 
+	private bool playFireOnce = false;
+	public GameObject fireFX;
+
 	public GameObject playerModel;
 	private Animator animatorModel;
 
@@ -62,12 +65,22 @@ public class Health : NetworkBehaviour {
 
 					StaticGameStats.EnemyCount--;
                     
+					if (playFireOnce == false) {
+						Instantiate (fireFX, transform.position, Quaternion.identity);
+						playFireOnce = true;
+					}
+
 					Destroy(gameObject);
 
 				}
 				else
 				{
 					currentHealth = -1001;
+
+					if (playFireOnce == false) {
+						Instantiate (fireFX, transform.position, Quaternion.identity);
+						playFireOnce = true;
+					}
 
 					bool isDead = animatorModel.GetBool ("dead");
 

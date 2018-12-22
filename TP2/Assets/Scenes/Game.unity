@@ -1274,6 +1274,9 @@ MonoBehaviour:
   gameOverText: {fileID: 394061689}
   syncEnemyCount: 0
   enemiesLeftText: {fileID: 604547030}
+  firework1: {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
+  firework2: {fileID: 175238, guid: 26d069e6f78e6f8478e4dc0152bd6939, type: 3}
+  firework3: {fileID: 110790, guid: 0f75f6db4a318f54382e0c98b2226db8, type: 3}
 --- !u!4 &921940364
 Transform:
   m_ObjectHideFlags: 0
@@ -1282,7 +1285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921940362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1155.8704, y: 78.71271, z: 58.84198}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1679025592}

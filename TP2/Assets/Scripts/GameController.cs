@@ -14,6 +14,10 @@ public class GameController : NetworkBehaviour {
 	public int syncEnemyCount;
 
 	public Text enemiesLeftText;
+	public GameObject firework1;
+	public GameObject firework2;
+	public GameObject firework3;
+	bool playFireworksOnce = false;
 
 	void FixedUpdate () {
 		
@@ -36,16 +40,23 @@ public class GameController : NetworkBehaviour {
 		SceneManager.LoadScene("Main");
 	}
 
-	[ClientRpc]
+
 	private void RpcGameOver (){
-		
+
+
+		if (playFireworksOnce == false) {
+			Instantiate (firework1, transform.position, Quaternion.identity);
+			Invoke ("Firework2", 0.5f);
+			Invoke ("Firework3", 1.0f);
+			playFireworksOnce = true;
+		}
 		gameOverText.SetActive (true);
 
 		Invoke ("RpcQuitGameScene", 2f);
 
 	}
 
-	[ClientRpc]
+
 	private void RpcQuitGameScene(){
 		
 		Destroy(NetworkManagerGameObject);
@@ -53,4 +64,11 @@ public class GameController : NetworkBehaviour {
 		SceneManager.LoadScene("Main");
 	}
 
+	private void Firework2(){
+		Instantiate (firework2, transform.position += new Vector3(5f, 5f, 5f), Quaternion.identity);
+	}
+
+	private void Firework3(){
+		Instantiate (firework3, transform.position += new Vector3 (-10f, 0f, -10f), Quaternion.identity);
+	}
 }

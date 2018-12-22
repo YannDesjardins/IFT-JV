@@ -308,6 +308,7 @@ MonoBehaviour:
     type: 3}
   currentHealth: 100
   healthBar: {fileID: 224385460646920180}
+  fireFX: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
   playerModel: {fileID: 4627988824153965659}
 --- !u!114 &114081209735567740
 MonoBehaviour:
