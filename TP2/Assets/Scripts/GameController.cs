@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class GameController : NetworkBehaviour {
 
@@ -14,20 +15,29 @@ public class GameController : NetworkBehaviour {
 	public int syncEnemyCount;
 
 	public Text enemiesLeftText;
+    public AudioMixerSnapshot endGameSnapShot;
+    public AudioClip victorySound;
 	public GameObject firework1;
 	public GameObject firework2;
 	public GameObject firework3;
-	bool playFireworksOnce = false;
+	bool gameOver = false;
 
-	void FixedUpdate () {
+    private AudioSource audioSource;
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void FixedUpdate () {
 		if (isServer) {
 			syncEnemyCount = StaticGameStats.EnemyCount;
 		}
 
 		enemiesLeftText.text = "Enemies left: " + syncEnemyCount;
 
-		if (StaticGameStats.EnemyCount == 0) {
+		if (StaticGameStats.EnemyCount == 0 && !gameOver) {
+            gameOver = true;
 			RpcGameOver ();
 			Invoke ("DedicatedServerShutdown", 3f);
 		}
@@ -42,18 +52,15 @@ public class GameController : NetworkBehaviour {
 
 
 	private void RpcGameOver (){
-
-
-		if (playFireworksOnce == false) {
-			Instantiate (firework1, transform.position, Quaternion.identity);
-			Invoke ("Firework2", 0.5f);
-			Invoke ("Firework3", 1.0f);
-			playFireworksOnce = true;
-		}
+        endGameSnapShot.TransitionTo(0f);
+        audioSource.PlayOneShot(victorySound);
+        Instantiate (firework1, transform.position, Quaternion.identity);
+		Invoke ("Firework2", 0.5f);
+		Invoke ("Firework3", 1.0f);
+		
 		gameOverText.SetActive (true);
 
 		Invoke ("RpcQuitGameScene", 2f);
-
 	}
 
 
