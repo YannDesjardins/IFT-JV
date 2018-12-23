@@ -11,7 +11,6 @@ public class Health : NetworkBehaviour {
 	public float invincibilityTime;
 	public bool destroyOnDeath;
     public AudioClip deathSound;
-    public AudioSource audioSource;
     public GameObject remoteSound;
 
     [SyncVar(hook = "OnChangeHealth")]
@@ -19,10 +18,12 @@ public class Health : NetworkBehaviour {
 
 	public RectTransform healthBar;
 
-	private float timeLastHit = 0;
+    private AudioSource audioSource;
+    private float timeLastHit = 0;
 	private float regenTime = 0;
 	private NetworkStartPosition[] spawnPoints;
     private EnemiesSituation enemiesSituation;
+    private ParticleSystemPool particleSystemPool;
 
 	public GameObject fireFX;
 
@@ -32,6 +33,7 @@ public class Health : NetworkBehaviour {
 
 	void Start ()
 	{
+        particleSystemPool = GameObject.FindGameObjectWithTag("GameController").GetComponent<ParticleSystemPool>();
         audioSource = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
@@ -64,13 +66,11 @@ public class Health : NetworkBehaviour {
 			{
                 GameObject sound = Instantiate(remoteSound, transform.position,transform.rotation);
                 Destroy(sound,deathSound.length);
-
-				if (destroyOnDeath)
+                particleSystemPool.PlayParticleSystem(transform);
+                if (destroyOnDeath)
 				{
                     enemiesSituation.DecreaseAlertedEnemies();
 					StaticGameStats.EnemyCount--;
-					Instantiate (fireFX, transform.position, Quaternion.identity);
-
 					Destroy(gameObject);
 
 				}
@@ -78,10 +78,7 @@ public class Health : NetworkBehaviour {
 				{
 					currentHealth = -1001;
 
-                    Instantiate (fireFX, transform.position, Quaternion.identity);
-
 					bool isDead = animatorModel.GetBool ("dead");
-
 					animatorModel.SetBool ("dead", true);
                     audioSource.Stop();
 
