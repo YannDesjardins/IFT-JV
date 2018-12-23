@@ -27,9 +27,11 @@ public class Health : NetworkBehaviour {
 
 	public GameObject playerModel;
 	private Animator animatorModel;
+    private GameObject mainCamera;
 
 	void Start ()
 	{
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
         animatorModel = playerModel.GetComponent<Animator> ();
 
@@ -113,8 +115,8 @@ public class Health : NetworkBehaviour {
 	void RpcRespawn()
 	{
 		Vector3 spawnPoint = Vector3.zero;
-
-		currentHealth = maxHealth;
+        
+        currentHealth = maxHealth;
 
 		animatorModel.SetBool ("dead", false);
 
@@ -126,7 +128,7 @@ public class Health : NetworkBehaviour {
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
 			gameObject.GetComponent<PlayerController>().enabled = true;
-
-		}
+            mainCamera.transform.position = new Vector3(transform.position.x, mainCamera.transform.position.y, transform.position.z);
+        }
 	}
 }
