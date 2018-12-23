@@ -5,12 +5,11 @@ using System.Collections;
 // et sur https://www.youtube.com/watch?v=IrO4mswO2o4
 public class MapLoader : MonoBehaviour
 {
-    [SerializeField] private int rows = 5;
-    [SerializeField] private int columns = 5;
+    //[SerializeField] private int rows = 5;
+    //[SerializeField] private int columns = 5;
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject floor;
-    [SerializeField] private int seed = 19;
-
+    //[SerializeField] private int seed = 19;
     private float size = 8f;
     private Cell[,] cells;
 
@@ -18,22 +17,22 @@ public class MapLoader : MonoBehaviour
     void Start()
     {
         Initialize();
-        HuntAndKillMazeAlgorithm ma = new HuntAndKillMazeAlgorithm(cells, seed);
+        HuntAndKillMazeAlgorithm ma = new HuntAndKillMazeAlgorithm(cells, StaticGameStats.Seed);
         ma.CreateMap();
     }
-
     // Update is called once per frame
     void Update()
     {
     }
 
+
     private void Initialize()
     {
-        cells = new Cell[rows, columns];
+        cells = new Cell[StaticGameStats.Rows, StaticGameStats.Columns];
 
-        for (int r = 0; r < rows; r++)
+        for (int r = 0; r < StaticGameStats.Rows; r++)
         {
-            for (int c = 0; c < columns; c++)
+            for (int c = 0; c < StaticGameStats.Columns; c++)
             {
                 cells[r, c] = new Cell();
 

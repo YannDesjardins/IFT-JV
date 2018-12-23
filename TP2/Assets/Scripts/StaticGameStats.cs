@@ -10,8 +10,10 @@ public static class StaticGameStats{
 	private static int avatarColor2 = 0;
 	private static int avatarColor3 = 1;
 	private static bool avatarSantaHat = false;
-
-	private static int enemyMax = 10;
+    private static int rows = 5;
+    private static int columns = 5;
+    private static int seed = 19;
+    private static int enemyMax = 10;
 	private static int enemyCount = 10;
     private static int difficulty = 1;
     private static float accuracy = 0.09f;
@@ -199,6 +201,42 @@ public static class StaticGameStats{
         set
         {
             controller = value;
+        }
+    }
+
+    public static int Columns
+    {
+        get
+        {
+            return columns;
+        }
+        set
+        {
+            columns = value;
+        }
+    }
+
+    public static int Rows
+    {
+        get
+        {
+            return rows;
+        }
+        set
+        {
+            rows = value;
+        }
+    }
+
+    public static int Seed
+    {
+        get
+        {
+            return seed;
+        }
+        set
+        {
+            seed = value;
         }
     }
 }

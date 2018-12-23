@@ -1603,6 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkManagerGameObject: {fileID: 844385191}
   gameOverText: {fileID: 394061689}
+  MapLoader: {fileID: 0}
   syncEnemyCount: 0
   enemiesLeftText: {fileID: 604547030}
   endGameSnapShot: {fileID: 245944332702657254, guid: 4e950ad82c6d3fb4e800b11725975e88,
@@ -3457,11 +3458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f77b405e5994f409358b503a5f1968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 5
-  columns: 5
   wall: {fileID: 9104854864408669903, guid: 22f917b500205b24286e0f46296024a8, type: 3}
   floor: {fileID: 3441784546210684700, guid: ba74dd3b2813714428bddf8a27654b89, type: 3}
-  seed: 10
 --- !u!4 &1945216717
 Transform:
   m_ObjectHideFlags: 0

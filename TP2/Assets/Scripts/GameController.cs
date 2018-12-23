@@ -10,6 +10,7 @@ public class GameController : NetworkBehaviour {
 
 	public GameObject NetworkManagerGameObject;
 	public GameObject gameOverText;
+    public GameObject MapLoader;
 
 	[SyncVar]
 	public int syncEnemyCount;
