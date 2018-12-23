@@ -3474,6 +3474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall: {fileID: 9104854864408669903, guid: 22f917b500205b24286e0f46296024a8, type: 3}
   floor: {fileID: 3441784546210684700, guid: ba74dd3b2813714428bddf8a27654b89, type: 3}
+  props1: {fileID: 2452296985246327533, guid: 9355d700ee54d7f4e8847af231195177, type: 3}
+  props2: {fileID: 8405865233544176218, guid: 65c87bceb899c8d45a7719cd0969a00f, type: 3}
+  props3: {fileID: 9222071919669423337, guid: f2190ccdf137945489d83f736ef429bb, type: 3}
 --- !u!4 &1945216717
 Transform:
   m_ObjectHideFlags: 0

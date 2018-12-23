@@ -10,8 +10,8 @@ public class PseudoRandomNumberGenerator
         randomiser = new System.Random(seed);
     }
 
-    public int GetNextNumber()
+    public int GetNextNumber(int min,int max)
     {
-        return randomiser.Next(1, 5);
+        return randomiser.Next(min, max);
     }
 }

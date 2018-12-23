@@ -36,7 +36,7 @@ public class HuntAndKillMazeAlgorithm
     {
         while (RouteStillAvailable(currentRow, currentColumn))
         {
-            int direction = numberGenerator.GetNextNumber();
+            int direction = numberGenerator.GetNextNumber(1,5);
 
             if (direction == 1 && CellIsAvailable(currentRow - 1, currentColumn))
             {
@@ -160,7 +160,7 @@ public class HuntAndKillMazeAlgorithm
 
         while (!wallDestroyed)
         {
-            int direction = numberGenerator.GetNextNumber();
+            int direction = numberGenerator.GetNextNumber(1,5);
 
             if (direction == 1 && row > 0 && cells[row - 1, column].visited)
             {

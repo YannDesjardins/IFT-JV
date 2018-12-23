@@ -5,17 +5,21 @@ using System.Collections;
 // et sur https://www.youtube.com/watch?v=IrO4mswO2o4
 public class MapLoader : MonoBehaviour
 {
-    //[SerializeField] private int rows = 5;
-    //[SerializeField] private int columns = 5;
+
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject floor;
-    //[SerializeField] private int seed = 19;
+    [SerializeField] private GameObject props1;
+    [SerializeField] private GameObject props2;
+    [SerializeField] private GameObject props3;
+
     private float size = 8f;
     private Cell[,] cells;
+    private PseudoRandomNumberGenerator numberGenerator;
 
     // Use this for initialization
     void Start()
     {
+        numberGenerator = new PseudoRandomNumberGenerator(StaticGameStats.Seed);
         Initialize();
         HuntAndKillMazeAlgorithm ma = new HuntAndKillMazeAlgorithm(cells, StaticGameStats.Seed);
         ma.CreateMap();
@@ -59,8 +63,53 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].southWall = Instantiate(wall, new Vector3((r * size) + (size / 2f), 0, c * size), Quaternion.identity) as GameObject;
                 cells[r, c].southWall.name = "South Wall " + r + "," + c;
                 cells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
+
+                int propsSpawn = numberGenerator.GetNextNumber(1,9);
+                //int propsSpawn = Random.Range(1,9);
+                if (propsSpawn<4)
+                {
+                    cells[r, c].props = Instantiate(GetProps(propsSpawn),
+                        new Vector3((r * size)- Random.Range(-(size / 2f),size /2f), -(1f), (c * size) - Random.Range(-(size / 2f), size / 2f)),
+                        Quaternion.Euler(0.0f,Random.Range(0, 180),0.0f)) as GameObject;
+                    cells[r, c].props.name = "Props " + r + "," + c;
+                    //cells[r, c].props.transform.Rotate(Vector3.right, 90f);
+                }
             }
         }
+    }
+
+    private GameObject GetProps(int number)
+    {
+        if(number == 1)
+        {
+            return props1;
+        }
+        else if (number == 2)
+        {
+            return props2;
+        }
+        else
+        {
+            return props3;
+        }
+
+    }
+
+    private void GetPropsPosition(int number)
+    {
+        if (number == 1)
+        {
+
+        }
+        else if (number == 2)
+        {
+
+        }
+        else
+        {
+
+        }
+
     }
 }
 

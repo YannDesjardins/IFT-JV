@@ -11,4 +11,5 @@ public class Cell
     public GameObject eastWall;
     public GameObject westWall;
     public GameObject floor;
+    public GameObject props;
 }
