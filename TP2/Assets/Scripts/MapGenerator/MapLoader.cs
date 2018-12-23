@@ -15,11 +15,13 @@ public class MapLoader : MonoBehaviour
 
     private float size = 8f;
     private Cell[,] cells;
+    private ParticleSystemPool particleSystemPool;
     private PseudoRandomNumberGenerator numberGenerator;
 
     // Use this for initialization
     void Start()
     {
+        particleSystemPool = GameObject.FindGameObjectWithTag("MapLoader").GetComponent<ParticleSystemPool>();
         numberGenerator = new PseudoRandomNumberGenerator(StaticGameStats.Seed);
         Initialize();
         HuntAndKillMazeAlgorithm ma = new HuntAndKillMazeAlgorithm(cells, StaticGameStats.Seed);
@@ -76,6 +78,9 @@ public class MapLoader : MonoBehaviour
                     if (propsSpawn == 3)
                     {
                         cells[r, c].props.tag = "Patrol";
+                        cells[r, c].props.transform.Translate(new Vector3(0, 0.4f, 0));
+                        particleSystemPool.PlayParticleSystem(cells[r, c].props.transform);
+
                     }
                 }
             }

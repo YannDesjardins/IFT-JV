@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - EnemyHandler
   - Patrol
+  - MapLoader
   layers:
   - Default
   - TransparentFX
