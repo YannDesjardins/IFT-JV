@@ -7,6 +7,7 @@ public class HuntAndKillMazeAlgorithm
 {
     private Cell[,] cells;
     private PseudoRandomNumberGenerator numberGenerator;
+    private int lastNumber = 0;
     private int rows;
     private int columns;
     private int currentRow = 0;
@@ -37,31 +38,36 @@ public class HuntAndKillMazeAlgorithm
         while (RouteStillAvailable(currentRow, currentColumn))
         {
             int direction = numberGenerator.GetNextNumber(1,5);
+            if (direction != lastNumber)
+            {
+                cells[currentRow, currentColumn].floor.tag = "Navigation";
+            }
+            lastNumber = direction;
 
             if (direction == 1 && CellIsAvailable(currentRow - 1, currentColumn))
             {
-                // North
+                // Nord
                 DestroyWallIfItExists(cells[currentRow, currentColumn].northWall);
                 DestroyWallIfItExists(cells[currentRow - 1, currentColumn].southWall);
                 currentRow--;
             }
             else if (direction == 2 && CellIsAvailable(currentRow + 1, currentColumn))
             {
-                // South
+                // Sud
                 DestroyWallIfItExists(cells[currentRow, currentColumn].southWall);
                 DestroyWallIfItExists(cells[currentRow + 1, currentColumn].northWall);
                 currentRow++;
             }
             else if (direction == 3 && CellIsAvailable(currentRow, currentColumn + 1))
             {
-                // east
+                // est
                 DestroyWallIfItExists(cells[currentRow, currentColumn].eastWall);
                 DestroyWallIfItExists(cells[currentRow, currentColumn + 1].westWall);
                 currentColumn++;
             }
             else if (direction == 4 && CellIsAvailable(currentRow, currentColumn - 1))
             {
-                // west
+                // ouest
                 DestroyWallIfItExists(cells[currentRow, currentColumn].westWall);
                 DestroyWallIfItExists(cells[currentRow, currentColumn - 1].eastWall);
                 currentColumn--;
@@ -69,6 +75,7 @@ public class HuntAndKillMazeAlgorithm
 
             cells[currentRow, currentColumn].visited = true;
         }
+        
     }
 
     private void Hunt()

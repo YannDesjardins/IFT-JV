@@ -44,6 +44,7 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].floor.name = "Floor " + r + "," + c;
                 cells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 
+
                 if (c == 0)
                 {
                     cells[r, c].westWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) - (size / 2f)), Quaternion.identity) as GameObject;
@@ -65,14 +66,12 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
 
                 int propsSpawn = numberGenerator.GetNextNumber(1,9);
-                //int propsSpawn = Random.Range(1,9);
                 if (propsSpawn<4)
                 {
                     cells[r, c].props = Instantiate(GetProps(propsSpawn),
                         new Vector3((r * size)- Random.Range(-(size / 2f),size /2f), -(1f), (c * size) - Random.Range(-(size / 2f), size / 2f)),
                         Quaternion.Euler(0.0f,Random.Range(0, 180),0.0f)) as GameObject;
                     cells[r, c].props.name = "Props " + r + "," + c;
-                    //cells[r, c].props.transform.Rotate(Vector3.right, 90f);
                 }
             }
         }
