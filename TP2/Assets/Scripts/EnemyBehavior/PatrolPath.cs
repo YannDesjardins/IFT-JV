@@ -51,7 +51,7 @@ public class PatrolPath : MonoBehaviour {
             if (distance < distancePatrol)
             {
                 currentIndex++;
-                if (currentIndex > patrolPoints.Count)
+                if (currentIndex >= patrolPoints.Count)
                 {
                     currentIndex = 0;
                 }
