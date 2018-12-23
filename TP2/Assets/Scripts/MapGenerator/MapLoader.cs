@@ -11,6 +11,7 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private GameObject props1;
     [SerializeField] private GameObject props2;
     [SerializeField] private GameObject props3;
+    [SerializeField] private GameObject props4;
 
     private float size = 8f;
     private Cell[,] cells;
@@ -66,12 +67,16 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
 
                 int propsSpawn = numberGenerator.GetNextNumber(1,9);
-                if (propsSpawn<4)
+                if (propsSpawn<5)
                 {
                     cells[r, c].props = Instantiate(GetProps(propsSpawn),
                         new Vector3((r * size)- Random.Range(-(size / 2f),size /2f), -(1f), (c * size) - Random.Range(-(size / 2f), size / 2f)),
                         Quaternion.Euler(0.0f,Random.Range(0, 180),0.0f)) as GameObject;
                     cells[r, c].props.name = "Props " + r + "," + c;
+                    if (propsSpawn == 3)
+                    {
+                        cells[r, c].props.tag = "Patrol";
+                    }
                 }
             }
         }
@@ -86,6 +91,10 @@ public class MapLoader : MonoBehaviour
         else if (number == 2)
         {
             return props2;
+        }
+        else if (number == 3)
+        {
+            return props4;
         }
         else
         {
