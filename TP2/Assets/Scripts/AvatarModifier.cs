@@ -13,9 +13,12 @@ public class AvatarModifier : MonoBehaviour {
 	public Material color3;
 	public GameObject avatarSantaHat;
 
+	private Mesh avatarHeadMesh;
+
 	public Slider headSlider;
 	public Slider bodySlider;
 	public Toggle santaHatToggle;
+	public Toggle santaHatCombinedToggle;
 	public Dropdown color1Dropdown;
 	public Dropdown color2Dropdown;
 	public Dropdown color3Dropdown;
@@ -23,11 +26,14 @@ public class AvatarModifier : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		avatarHeadMesh = avatarHead.GetComponent<MeshFilter> ().mesh;
+
 		avatarBody.transform.localScale = StaticGameStats.AvatarBodyScale;
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
 		bodySlider.value = StaticGameStats.AvatarBodyScale.x;
 		headSlider.value = StaticGameStats.AvatarHeadScale.x;
 		santaHatToggle.isOn = StaticGameStats.AvatarSantaHat;
+		santaHatCombinedToggle.isOn = StaticGameStats.AvatarSantaHatCombined;
 
 		color1Dropdown.value = StaticGameStats.AvatarColor1;
 		ChangeColor (color1, StaticGameStats.AvatarColor1);
@@ -49,10 +55,6 @@ public class AvatarModifier : MonoBehaviour {
 		color3Dropdown.onValueChanged.AddListener (delegate {
 			Color3DropdownValueChanged (color3Dropdown);
 		});
-			
-		//color1.SetColor("_Color", Color.green);
-		//color2.SetColor("_Color", Color.green);
-		//color3.SetColor("_Color", Color.black);
 
 	}
 
@@ -73,6 +75,22 @@ public class AvatarModifier : MonoBehaviour {
 
 	public void AddSantaHat (){
 		StaticGameStats.AvatarSantaHat = santaHatToggle.isOn;
+	}
+
+	public void AddSantaHatCombined (){
+		StaticGameStats.AvatarSantaHatCombined = santaHatCombinedToggle.isOn;
+
+		if (santaHatCombinedToggle.isOn == true) {
+			CombineInstance[] combine = new CombineInstance[2];
+			combine [0].mesh = avatarHead.GetComponent<MeshFilter>().sharedMesh;
+			combine [1].mesh = avatarSantaHat.GetComponent<MeshFilter>().sharedMesh;
+			Mesh avatarCombined = new Mesh();
+			avatarCombined.CombineMeshes (combine, false, false);
+			avatarHead.GetComponent<MeshFilter> ().sharedMesh = avatarCombined;
+		} else{
+			avatarHead.GetComponent<MeshFilter> ().sharedMesh = avatarHeadMesh;
+		}
+
 	}
 
 	void Color1DropdownValueChanged(Dropdown change){
@@ -99,6 +117,12 @@ public class AvatarModifier : MonoBehaviour {
 		}
 		else if (newcolor == 2){
 			color.SetColor("_Color", Color.green);
+		}
+		else if (newcolor == 3){
+			color.SetColor("_Color", Color.blue);
+		}
+		else if (newcolor == 4){
+			color.SetColor("_Color", Color.yellow);
 		}
 	}
 

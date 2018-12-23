@@ -10,6 +10,7 @@ public static class StaticGameStats{
 	private static int avatarColor2 = 0;
 	private static int avatarColor3 = 1;
 	private static bool avatarSantaHat = false;
+	private static bool avatarSantaHatCombined = false;
     private static int rows = 5;
     private static int columns = 5;
     private static int seed = 19;
@@ -40,6 +41,18 @@ public static class StaticGameStats{
 		set 
 		{
 			avatarSantaHat = value;
+		}
+	}
+
+	public static bool AvatarSantaHatCombined
+	{
+		get 
+		{
+			return avatarSantaHatCombined;
+		}
+		set 
+		{
+			avatarSantaHatCombined = value;
 		}
 	}
 

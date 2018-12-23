@@ -17,11 +17,23 @@ public class AvatarModifierApplied : MonoBehaviour {
 		avatarBody.transform.localScale = StaticGameStats.AvatarBodyScale;
 		avatarHead.transform.localScale = StaticGameStats.AvatarHeadScale;
 		avatarSantaHat.active = StaticGameStats.AvatarSantaHat;
+		if (StaticGameStats.AvatarSantaHatCombined == true) {
+			CombineSantaHat ();
 
+		}
 		ChangeColor (color1, StaticGameStats.AvatarColor1);
 		ChangeColor (color2, StaticGameStats.AvatarColor2);
 		ChangeColor (color3, StaticGameStats.AvatarColor3);
 
+	}
+
+	void CombineSantaHat(){
+		CombineInstance[] combine = new CombineInstance[2];
+		combine [0].mesh = avatarHead.GetComponent<MeshFilter>().sharedMesh;
+		combine [1].mesh = avatarSantaHat.GetComponent<MeshFilter>().sharedMesh;
+		Mesh avatarCombined = new Mesh();
+		avatarCombined.CombineMeshes (combine, false, false);
+		avatarHead.GetComponent<MeshFilter> ().sharedMesh = avatarCombined;
 	}
 
 	void ChangeColor(Material color, int newcolor){
@@ -33,6 +45,12 @@ public class AvatarModifierApplied : MonoBehaviour {
 		}
 		else if (newcolor == 2){
 			color.SetColor("_Color", Color.green);
+		}
+		else if (newcolor == 3){
+			color.SetColor("_Color", Color.blue);
+		}
+		else if (newcolor == 4){
+			color.SetColor("_Color", Color.yellow);
 		}
 	}
 }
