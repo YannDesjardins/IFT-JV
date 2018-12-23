@@ -6,6 +6,8 @@ public class PatrolPath : MonoBehaviour {
     public Vector3 begin;
     public Vector3 end;
 
+    private List<Vector3> patrolPoints = new List<Vector3>();
+    private int currentIndex = 0;
     private Vector3 currentPosition;
     private Vector3 currentDestination;
     private bool patrolling;
@@ -14,6 +16,11 @@ public class PatrolPath : MonoBehaviour {
 
     public void Start()
     {
+        GameObject[] patrolObjects = GameObject.FindGameObjectsWithTag("Patrol");
+        foreach(GameObject patrolObject in patrolObjects)
+        {
+            patrolPoints.Add(patrolObject.transform.position);
+        }
         patrolling = true;
         currentDestination = end;
         currentPosition = transform.position;
@@ -41,11 +48,14 @@ public class PatrolPath : MonoBehaviour {
         if (patrolling)
         {
             float distance = (currentDestination - transform.position).magnitude;
-            if(distance < distancePatrol)
+            if (distance < distancePatrol)
             {
-                //changing patrol target
-                if (currentDestination.Equals(begin)) { currentDestination = end; }
-                else { currentDestination = begin; }
+                currentIndex++;
+                if (currentIndex > patrolPoints.Count)
+                {
+                    currentIndex = 0;
+                }
+                currentDestination = patrolPoints[currentIndex];
             }
             currentPosition = transform.position;
         }
