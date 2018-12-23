@@ -11,6 +11,7 @@ public class Health : NetworkBehaviour {
 	public float invincibilityTime;
 	public bool destroyOnDeath;
     public AudioClip deathSound;
+    public AudioSource audioSource;
     public GameObject remoteSound;
 
     [SyncVar(hook = "OnChangeHealth")]
@@ -31,6 +32,7 @@ public class Health : NetworkBehaviour {
 
 	void Start ()
 	{
+        audioSource = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         enemiesSituation = GameObject.FindGameObjectWithTag("EnemyHandler").GetComponent<EnemiesSituation>();
         animatorModel = playerModel.GetComponent<Animator> ();
@@ -81,8 +83,9 @@ public class Health : NetworkBehaviour {
 					bool isDead = animatorModel.GetBool ("dead");
 
 					animatorModel.SetBool ("dead", true);
+                    audioSource.Stop();
 
-					gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
 					gameObject.GetComponent<PlayerController>().enabled = false;
 					Invoke ("RpcRespawn", 2.0f);

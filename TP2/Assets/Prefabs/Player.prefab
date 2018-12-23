@@ -518,6 +518,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4576505771718584}
   rateOfFire: 0.1
   gunSound: {fileID: 8300000, guid: 9d69ce9d83ce27843b737896ccba5962, type: 3}
+  walkingSound: {fileID: 0}
   playerModel: {fileID: 1809367241562386}
 --- !u!114 &114032390862248044
 MonoBehaviour:
@@ -535,6 +536,7 @@ MonoBehaviour:
   invincibilityTime: 0
   destroyOnDeath: 0
   deathSound: {fileID: 8300000, guid: 4b3a6b923a857d545a20a778b65bed07, type: 3}
+  audioSource: {fileID: 0}
   remoteSound: {fileID: 5908992140515424935, guid: 8f1594c379008e048b39fcf195b711c3,
     type: 3}
   currentHealth: 100
@@ -573,11 +575,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243540704339672874, guid: 4e950ad82c6d3fb4e800b11725975e88,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

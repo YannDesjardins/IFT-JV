@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour {
 	public Transform bulletSpawn;
 	public float rateOfFire;
     public AudioClip gunSound;
+    public AudioClip walkingSound;
 
 	private float timeOfFire;
 	public GameObject playerModel;
@@ -17,12 +18,13 @@ public class PlayerController : NetworkBehaviour {
 	private Vector3 currentPosition;
 	private Vector3 lastPosition;
     private GameObject mainCamera;
-    private AudioSource source;
+    private AudioSource audioSource;
+    private bool isRunning = false;
 
 	void Start() {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         mainCamera.transform.position = new Vector3(transform.position.x, mainCamera.transform.position.y, transform.position.z);
-        source = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 		animatorModel = playerModel.GetComponent<Animator> ();
 		currentPosition = transform.position;
 		lastPosition = currentPosition;
@@ -33,13 +35,19 @@ public class PlayerController : NetworkBehaviour {
 		currentPosition = transform.position;
 
 		if (lastPosition == currentPosition) {
-			bool isRunning = animatorModel.GetBool ("running");
-
 			animatorModel.SetBool ("running", false);
+            if (isRunning)
+            {
+                isRunning = false;
+                audioSource.Stop();
+            }
 		} else {
-			bool isRunning = animatorModel.GetBool ("running");
-
 			animatorModel.SetBool ("running", true);
+            if (!isRunning)
+            {
+                isRunning = true;
+                audioSource.Play();
+            }
 		}
 
 		lastPosition = currentPosition;
@@ -78,8 +86,7 @@ public class PlayerController : NetworkBehaviour {
 
         transform.Translate(xx, 0, 0, Space.World);
 		transform.Translate(0, 0, zz, Space.World);
-        mainCamera.transform.Translate(xx, 0, 0, Space.World);
-        mainCamera.transform.Translate(0, 0, zz, Space.World);
+        mainCamera.transform.position = new Vector3(transform.position.x, mainCamera.transform.position.y, transform.position.z);
 
         if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Joystick1Button7)) && Time.time>timeOfFire)
 		{
@@ -101,7 +108,7 @@ public class PlayerController : NetworkBehaviour {
 		// Add velocity to the bullet
 		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
 
-        source.PlayOneShot(gunSound,0.5f);
+        audioSource.PlayOneShot(gunSound,1f);
 
 		// Spawn the bullet on the Clients
 		NetworkServer.Spawn(bullet);
