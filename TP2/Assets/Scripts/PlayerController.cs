@@ -16,10 +16,12 @@ public class PlayerController : NetworkBehaviour {
 
 	private Vector3 currentPosition;
 	private Vector3 lastPosition;
-
+    private GameObject mainCamera;
     private AudioSource source;
 
 	void Start() {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        mainCamera.transform.position = new Vector3(transform.position.x, mainCamera.transform.position.y, transform.position.z);
         source = GetComponent<AudioSource>();
 		animatorModel = playerModel.GetComponent<Animator> ();
 		currentPosition = transform.position;
@@ -76,6 +78,8 @@ public class PlayerController : NetworkBehaviour {
 
         transform.Translate(xx, 0, 0, Space.World);
 		transform.Translate(0, 0, zz, Space.World);
+        mainCamera.transform.Translate(xx, 0, 0, Space.World);
+        mainCamera.transform.Translate(0, 0, zz, Space.World);
 
         if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Joystick1Button7)) && Time.time>timeOfFire)
 		{
@@ -84,6 +88,7 @@ public class PlayerController : NetworkBehaviour {
 		}
 			
 	}
+
 	[Command]
 	void CmdFire()
 	{
