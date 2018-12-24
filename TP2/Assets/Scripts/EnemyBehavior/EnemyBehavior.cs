@@ -146,16 +146,16 @@ public abstract class EnemyBehavior : NetworkBehaviour
 
     protected Vector3 FindMovementTarget(Vector3 t)
     {
-        List<Vector3> path = pathfinder.DijkstraFindPath(transform.position, t);
+        /*List<Vector3> path = pathfinder.DijkstraFindPath(transform.position, t);
         if (path.Count > 0)
         {
-            return pathfinder.DijkstraFindPath(transform.position, t)[0];
+            return path[0];
         }
         else
         {
             return t;
-        }
-
+        }*/
+        return t;
     }
 
     protected bool IsPlayerWithinSight()

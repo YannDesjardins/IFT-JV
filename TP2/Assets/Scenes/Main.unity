@@ -10190,9 +10190,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1599248335}
   - component: {fileID: 1599248334}
+  - component: {fileID: 1599248336}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: MapLoader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10211,6 +10212,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall: {fileID: 3441784546210684700, guid: ba74dd3b2813714428bddf8a27654b89, type: 3}
   floor: {fileID: 3441784546210684700, guid: ba74dd3b2813714428bddf8a27654b89, type: 3}
+  props1: {fileID: 2452296985246327533, guid: 9355d700ee54d7f4e8847af231195177, type: 3}
+  props2: {fileID: 8405865233544176218, guid: 65c87bceb899c8d45a7719cd0969a00f, type: 3}
+  props3: {fileID: 9222071919669423337, guid: f2190ccdf137945489d83f736ef429bb, type: 3}
+  props4: {fileID: 2015575372744403080, guid: 51239d759af17f34bac6f76ab6c86276, type: 3}
 --- !u!4 &1599248335
 Transform:
   m_ObjectHideFlags: 0
@@ -10225,6 +10230,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1599248336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599248333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee2815cd43ab28498bcedce8b5badcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystemPrefab: {fileID: 120004, guid: 569295cc5c2b7b34e8c3d8af549c309e, type: 3}
 --- !u!1 &1602486011
 GameObject:
   m_ObjectHideFlags: 0

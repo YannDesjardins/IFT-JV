@@ -11,14 +11,17 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private GameObject props1;
     [SerializeField] private GameObject props2;
     [SerializeField] private GameObject props3;
+    [SerializeField] private GameObject props4;
 
     private float size = 8f;
     private Cell[,] cells;
+    private ParticleSystemPool particleSystemPool;
     private PseudoRandomNumberGenerator numberGenerator;
 
     // Use this for initialization
     void Start()
     {
+        particleSystemPool = GameObject.FindGameObjectWithTag("MapLoader").GetComponent<ParticleSystemPool>();
         numberGenerator = new PseudoRandomNumberGenerator(StaticGameStats.Seed);
         Initialize();
         HuntAndKillMazeAlgorithm ma = new HuntAndKillMazeAlgorithm(cells, StaticGameStats.Seed);
@@ -44,6 +47,7 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].floor.name = "Floor " + r + "," + c;
                 cells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 
+
                 if (c == 0)
                 {
                     cells[r, c].westWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) - (size / 2f)), Quaternion.identity) as GameObject;
@@ -65,14 +69,19 @@ public class MapLoader : MonoBehaviour
                 cells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
 
                 int propsSpawn = numberGenerator.GetNextNumber(1,9);
-                //int propsSpawn = Random.Range(1,9);
-                if (propsSpawn<4)
+                if (propsSpawn<5)
                 {
                     cells[r, c].props = Instantiate(GetProps(propsSpawn),
                         new Vector3((r * size)- Random.Range(-(size / 2f),size /2f), -(1f), (c * size) - Random.Range(-(size / 2f), size / 2f)),
                         Quaternion.Euler(0.0f,Random.Range(0, 180),0.0f)) as GameObject;
                     cells[r, c].props.name = "Props " + r + "," + c;
-                    //cells[r, c].props.transform.Rotate(Vector3.right, 90f);
+                    if (propsSpawn == 3)
+                    {
+                        cells[r, c].props.tag = "Patrol";
+                        cells[r, c].props.transform.Translate(new Vector3(0, 0.4f, 0));
+                        particleSystemPool.PlayParticleSystem(cells[r, c].props.transform);
+
+                    }
                 }
             }
         }
@@ -87,6 +96,10 @@ public class MapLoader : MonoBehaviour
         else if (number == 2)
         {
             return props2;
+        }
+        else if (number == 3)
+        {
+            return props4;
         }
         else
         {
